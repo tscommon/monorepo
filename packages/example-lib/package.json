@@ -1,6 +1,6 @@
 {
-  "name": "@tscommon/example",
-  "description": "An example package",
+  "name": "@tscommon/example-lib",
+  "description": "An example library",
   "version": "0.0.0",
   "license": "MIT",
   "repository": {
@@ -13,13 +13,13 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json --outDir dist",
+    "format": "prettier . --check",
+    "lint": "eslint",
     "test": "vitest --run",
     "test:coverage": "vitest --run --coverage",
-    "format": "prettier . --check"
+    "build": "tsc -p tsconfig.build.json --outDir dist"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "2.1.1",
     "vitest": "2.1.1"
   }
 }

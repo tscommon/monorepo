@@ -1,0 +1,27 @@
+{
+  "name": "@tscommon/example-types",
+  "description": "An example package containing only types",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tscommon/monorepo.git"
+  },
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "lint": "eslint",
+    "format": "prettier . --check",
+    "test": "vitest --run",
+    "test:types": "tsd -f src/**/*.test-d.ts",
+    "pretest:types": "npm run build",
+    "build": "node ../../bin/copy src dist '.(test|test-d).ts$'"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "2.1.1",
+    "vitest": "2.1.1",
+    "tsd": "0.31.2"
+  }
+}
