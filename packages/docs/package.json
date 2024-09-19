@@ -1,6 +1,7 @@
 {
   "name": "@tscommon/docs",
   "version": "1.0.0",
+  "description": "Documentation for the tscommon monorepo",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
