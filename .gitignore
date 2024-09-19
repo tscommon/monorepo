@@ -131,3 +131,9 @@ dist
 
 # vitest
 coverage/
+
+# docusaurus
+build/
+
+# MacOS
+.DS_Store

@@ -42,12 +42,6 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
 
-      - name: Restore docusaurus cache
-        uses: actions/cache@v4
-        with:
-          path: packages/docs/build
-          key: ${{ runner.os }}-docusaurus-${{ hashFiles('**/pnpm-lock.yaml') }}
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
