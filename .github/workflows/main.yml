@@ -12,15 +12,17 @@ env:
   CI: true
 
 jobs:
-  build:
-    name: Build
+  release:
+    name: Test, Build, Release
     runs-on: ubuntu-latest
+
     permissions:
       contents: write
       issues: write
       pull-requests: write
       pages: write
       id-token: write
+
     environment:
       name: github-pages
       url: ${{ steps.docs.outputs.page_url }}
@@ -42,12 +44,6 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
 
-      - name: Restore docusaurus cache
-        uses: actions/cache@v4
-        with:
-          path: packages/docs/build
-          key: ${{ runner.os }}-docusaurus-${{ hashFiles('**/pnpm-lock.yaml') }}
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -57,7 +53,10 @@ jobs:
       - name: Lint
         run: pnpm lint
 
-      - name: Test
+      - name: Test types
+        run: pnpm -r test:types
+
+      - name: Test with coverage
         run: pnpm test:coverage
 
       - name: Build

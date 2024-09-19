@@ -14,9 +14,9 @@
   "scripts": {
     "lint": "eslint",
     "format": "prettier . --check",
-    "test": "vitest --run",
-    "test:types": "tsd -f src/**/*.test-d.ts",
-    "pretest:types": "npm run build",
+    "pretest": "npm run build",
+    "test": "tsd -f src/**/*.test-d.ts",
+    "test:types": "pnpm test",
     "build": "node ../../bin/copy src dist '.(test|test-d).ts$'"
   },
   "devDependencies": {
