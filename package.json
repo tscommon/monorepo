@@ -9,7 +9,9 @@
     "format": "prettier . --check",
     "lint": "eslint",
     "test": "vitest --run",
-    "test:coverage": "vitest --run --coverage"
+    "test:coverage": "vitest --run --coverage",
+    "ci:publish": "pnpm publish -r --access public && changeset tag",
+    "ci:version": "pnpm changeset version && pnpm install --no-frozen-lockfile"
   },
   "devDependencies": {
     "@changesets/cli": "2.27.8",

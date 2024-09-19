@@ -8,9 +8,22 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+env:
+  CI: true
+
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.docs.outputs.page_url }}
 
     steps:
       - name: Checkout
@@ -18,27 +31,22 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
           run_install: false
 
-      - name: Get pnpm store directory
-        shell: bash
-        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - uses: actions/cache@v4
-        name: Setup pnpm cache
+      - name: Setup node
+        uses: actions/setup-node@v4
         with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Restore docusaurus cache
+        uses: actions/cache@v4
+        with:
+          path: packages/docs/build
+          key: ${{ runner.os }}-docusaurus-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -55,8 +63,30 @@ jobs:
       - name: Build
         run: pnpm -r build
 
-      - name: Create Release Pull Request
+      - name: Upload docs
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: packages/docs/build
+
+      - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v1
+        with:
+          version: pnpm ci:version
+          title: 'chore: update versions'
+          commit: 'chore: update versions'
+          publish: pnpm ci:publish
         env:
           GITHUB_TOKEN: ${{ github.token }}
+
+      - if: steps.changesets.outputs.published == 'true'
+        uses: codecov/codecov-action@v4
+        with:
+          fail_ci_if_error: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      - if: steps.changesets.outputs.published == 'true'
+        id: docs
+        name: Deploy docs
+        uses: actions/deploy-pages@v4
