@@ -1,3 +1,3 @@
 # TypeScript Common
 
-[![Coverage Status](https://coveralls.io/repos/github/tscommon/monorepo/badge.svg?branch=main)](https://coveralls.io/github/tscommon/monorepo?branch=main)
+[![codecov](https://codecov.io/gh/tscommon/monorepo/graph/badge.svg?token=I222OQNV9L)](https://codecov.io/gh/tscommon/monorepo)
