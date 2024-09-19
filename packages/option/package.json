@@ -18,10 +18,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tscommon"
+    "url": "https://github.com/tscommon/monorepo"
   },
   "bugs": {
-    "url": "https://github.com/tscommon/issues"
+    "url": "https://github.com/tscommon/monorepo/issues"
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json --outDir dist",

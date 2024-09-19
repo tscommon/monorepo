@@ -1,13 +1,4 @@
-# Option
-
-`Option` represents an optional value: it is either `some` and contains a value, or `none`, and does not.
-
-## ✨ [Documentation](https://tscommon.github.io/monorepo/packages/option)
-
-## Usage
-
-```ts
-import { Option } from "@tscommon/option";
+import { Option } from "../src";
 
 let a: Option<number> = Option.some(42);
 
@@ -29,4 +20,3 @@ switch (a) {
     console.log("No value");
     break;
 }
-```

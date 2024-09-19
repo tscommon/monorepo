@@ -11,7 +11,7 @@ export default defineConfig({
         '**/build/**',
         '**/*.d.ts',
         '**/*.test-d.ts',
-        '**/release.config.*',
+        '**/examples/**',
         '**/index.ts', // exclude index.ts files
       ],
       reporter: ['lcov', 'html'],
