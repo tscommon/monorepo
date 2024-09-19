@@ -1,161 +1,62 @@
 name: Main
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
 
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
-  format:
-    name: Check format
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run format
-
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run lint
-
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run test:coverage
-      - uses: coverallsapp/github-action@v2
-
-  test-types:
-    name: Test types
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run test:types --workspaces --if-present
-
   build:
-    name: Build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        package:
-          - example-lib
-          - example-types
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run build --workspace @tscommon/${{ matrix.package }}
-      - uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.package }}-dist
-          path: packages/${{ matrix.package }}/dist
-          if-no-files-found: error
 
-  build-docs:
-    name: Build docs
-    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run build --workspace @tscommon/docs
-      - uses: actions/upload-artifact@v4
-        with:
-          name: docs-build
-          path: packages/docs/build
-          if-no-files-found: error
-
-  release:
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: false
-    name: Release
-    needs: [format, test, test-types, build, build-docs]
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-      id-token: write
-    strategy:
-      matrix:
-        package:
-          - example-lib
-          - example-types
-    steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: npm
-          registry-url: https://npm.pkg.github.com
-      - run: npm ci
-      - uses: actions/download-artifact@v4
+          node-version-file: .nvmrc
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          name: ${{ matrix.package }}-dist
-          path: packages/${{ matrix.package }}/dist
-      - run: npx semantic-release -e ${{ github.workspace }}/release.config.cjs -d
-        working-directory: packages/${{ matrix.package }}
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Format
+        run: pnpm format
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Test
+        run: pnpm test:coverage
+
+      - name: Build
+        run: pnpm -r build
+
+      - name: Create Release Pull Request
+        id: changesets
+        uses: changesets/action@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
-
-  upload-docs:
-    name: Upload docs
-    needs: [build-docs, release]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: docs-build
-          path: packages/docs/build
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: packages/docs/build
-
-  deploy-docs:
-    name: Publish docs
-    needs: [upload-docs]
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.docs.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - id: docs
-        uses: actions/deploy-pages@v4

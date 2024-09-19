@@ -4,9 +4,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "packageManager": "pnpm@9.10.0",
   "scripts": {
     "format": "prettier . --check",
     "lint": "eslint",
@@ -14,7 +12,9 @@
     "test:coverage": "vitest --run --coverage"
   },
   "devDependencies": {
+    "@changesets/cli": "2.27.8",
     "@eslint/js": "9.10.0",
+    "@vitest/coverage-v8": "2.1.1",
     "eslint": "9.10.0",
     "eslint-config-prettier": "9.1.0",
     "globals": "15.9.0",
@@ -24,6 +24,7 @@
     "ts-node": "10.9.2",
     "tsd": "0.31.2",
     "typescript": "5.5.2",
-    "typescript-eslint": "8.6.0"
+    "typescript-eslint": "8.6.0",
+    "vitest": "2.1.1"
   }
 }
