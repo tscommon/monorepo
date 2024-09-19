@@ -10,6 +10,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
