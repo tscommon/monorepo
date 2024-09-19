@@ -96,6 +96,15 @@ importers:
         specifier: 0.31.2
         version: 0.31.2
 
+  packages/option:
+    devDependencies:
+      prettier:
+        specifier: 3.3.3
+        version: 3.3.3
+      typescript:
+        specifier: 5.6.2
+        version: 5.6.2
+
 packages:
 
   '@algolia/autocomplete-core@1.9.3':
@@ -6016,6 +6025,11 @@ packages:
 
   typescript@5.5.2:
     resolution: {integrity: sha512-NcRtPEOsPFFWjobJEtfihkLCZCXZt/os3zf8nTxjVH3RvTSxjrCamJpbExGvYOF+tFHc3pA65qpdwPbzjohhew==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  typescript@5.6.2:
+    resolution: {integrity: sha512-NW8ByodCSNCwZeghjN3o+JX5OFH0Ojg6sadjEKY4huZ52TqbJTJnDo5+Tw98lSy63NZvi4n+ez5m2u5d4PkZyw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -13761,6 +13775,8 @@ snapshots:
       - supports-color
 
   typescript@5.5.2: {}
+
+  typescript@5.6.2: {}
 
   uglify-js@3.19.3:
     optional: true
