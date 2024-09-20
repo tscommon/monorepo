@@ -1,6 +1,6 @@
 {
   "name": "@tscommon/synchronized",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "author": "7078731+igrek8@users.noreply.github.com",
   "description": "In an async environment, a race condition occurs when two or more async operations attempt to update mutable shared data at the same time. @synchronized decorator offers a mechanism to avoid race conditions by synchronizing async operations access to shared data",

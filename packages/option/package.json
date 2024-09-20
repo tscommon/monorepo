@@ -1,6 +1,6 @@
 {
   "name": "@tscommon/option",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "author": "7078731+igrek8@users.noreply.github.com",
   "description": "Option represents an optional value: it is either some and contains a value, or none, and does not",

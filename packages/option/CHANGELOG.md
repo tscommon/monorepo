@@ -1,5 +1,11 @@
 # @tscommon/option
 
+## 0.0.3
+
+### Patch Changes
+
+- 13909dc: Update docs
+
 ## 0.0.2
 
 ### Patch Changes
