@@ -1,32 +1,5 @@
-# Option
+# [Option](https://tscommon.github.io/monorepo/packages/option)
 
-`Option` represents an optional value: it is either `some` and contains a value, or `none`, and does not.
+Option represents an optional value: it is either some and contains a value, or none, and does not.
 
-## ✨ [Documentation](https://tscommon.github.io/monorepo/packages/option)
-
-## Usage
-
-```ts
-import { Option } from "@tscommon/option";
-
-let a: Option<number> = Option.some(42);
-
-switch (a) {
-  case Option.none:
-    console.log("No value");
-    break;
-  default:
-    console.log("Some value");
-    break;
-}
-
-console.log(a.unwrap());
-
-a = Option.none;
-
-switch (a) {
-  case Option.none:
-    console.log("No value");
-    break;
-}
-```
+## ✨ [Usage & Documentation](https://tscommon.github.io/monorepo/packages/option)

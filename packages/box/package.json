@@ -1,0 +1,31 @@
+{
+  "name": "@tscommon/box",
+  "version": "0.0.0",
+  "license": "MIT",
+  "author": "7078731+igrek8@users.noreply.github.com",
+  "description": "Creates a boxed value using an object (a box) and then places a value into it",
+  "keywords": [
+    "box",
+    "reference"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tscommon/monorepo"
+  },
+  "bugs": {
+    "url": "https://github.com/tscommon/monorepo/issues"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json --outDir dist",
+    "test": "vitest --run",
+    "test:coverage": "vitest --run --coverage"
+  }
+}
