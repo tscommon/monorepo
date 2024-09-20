@@ -1,6 +1,6 @@
 {
   "name": "@tscommon/docs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Documentation for the tscommon monorepo",
   "private": true,
   "scripts": {

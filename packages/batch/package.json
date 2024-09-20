@@ -1,6 +1,6 @@
 {
   "name": "@tscommon/batch",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "author": "7078731+igrek8@users.noreply.github.com",
   "description": "A primitive to represent a batch of items",
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tscommon/monorepo"
+    "url": "https://github.com/tscommon/monorepo.git"
   },
   "bugs": {
     "url": "https://github.com/tscommon/monorepo/issues"
