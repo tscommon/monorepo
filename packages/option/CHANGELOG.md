@@ -1,5 +1,11 @@
 # @tscommon/option
 
+## 0.0.4
+
+### Patch Changes
+
+- 19bb540: update docs + add new packages
+
 ## 0.0.3
 
 ### Patch Changes
