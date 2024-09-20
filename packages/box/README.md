@@ -1,5 +1,7 @@
-# [Box](https://tscommon.github.io/monorepo/packages/box)
+# [Box](https://tscommon.github.io/monorepo/primitives/box)
 
-Creates a boxed value using an object (a box) and then places a value into it.
+Wraps a value into a box to pass it by reference.
 
-## ✨ [Usage & Documentation](https://tscommon.github.io/monorepo/packages/box)
+[![codecov](https://codecov.io/gh/tscommon/monorepo/graph/badge.svg?token=I222OQNV9L)](https://codecov.io/gh/tscommon/monorepo)
+
+## ✨ [Documentation](https://tscommon.github.io/monorepo/primitives/box)

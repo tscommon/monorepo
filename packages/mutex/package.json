@@ -1,0 +1,37 @@
+{
+  "name": "@tscommon/mutex",
+  "version": "0.0.0",
+  "license": "MIT",
+  "author": "7078731+igrek8@users.noreply.github.com",
+  "description": "A mutual exclusion primitive useful for protecting shared data",
+  "keywords": [
+    "mutex",
+    "race condition",
+    "concurrency"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tscommon/monorepo"
+  },
+  "bugs": {
+    "url": "https://github.com/tscommon/monorepo/issues"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json --outDir dist",
+    "test": "vitest --run",
+    "test:coverage": "vitest --run --coverage"
+  },
+  "dependencies": {
+    "@tscommon/box": "workspace:*",
+    "@tscommon/option": "workspace:*",
+    "@tscommon/deferred": "workspace:*"
+  }
+}

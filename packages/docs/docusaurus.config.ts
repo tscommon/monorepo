@@ -1,9 +1,18 @@
 import type * as Preset from '@docusaurus/preset-classic';
 import type { Config } from '@docusaurus/types';
+import { DocusaurusPluginTypeDocApiOptions } from 'docusaurus-plugin-typedoc-api/lib/types';
+import { readdirSync } from 'fs';
+import path from 'path';
 import { themes as prismThemes } from 'prism-react-renderer';
 
+const packages = readdirSync(path.join(__dirname, '..'))
+  .filter((s) => !(s.startsWith('.') || s === 'docs'))
+  .map((packageName) => path.join('packages', packageName));
+
+const projectRoot = path.join(__dirname, '..', '..');
+
 const config: Config = {
-  title: 'TS Common',
+  title: 'TypeScript Common',
   tagline: 'A set of primitives for TypeScript projects',
   favicon: 'img/favicon-32x32.png',
 
@@ -39,6 +48,8 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl: 'https://github.com/tscommon/monorepo/tree/main/packages/docs',
+          sidebarCollapsed: false,
+          sidebarCollapsible: false,
         },
         blog: false,
         theme: {
@@ -49,8 +60,6 @@ const config: Config = {
   ],
 
   themeConfig: {
-    // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
     navbar: {
       title: 'TypeScript Common',
       logo: {
@@ -59,11 +68,27 @@ const config: Config = {
       },
       items: [
         {
+          type: 'html',
+          position: 'right',
+          value:
+            '<a target="_blank" rel="noopener noreferrer" href="https://codecov.io/gh/tscommon/monorepo" style="display: block; margin-top: 9px;"><img src="https://codecov.io/gh/tscommon/monorepo/graph/badge.svg?token=I222OQNV9L"/></a>',
+        },
+        {
           href: 'https://github.com/tscommon/monorepo',
           label: 'GitHub',
           position: 'right',
         },
+        {
+          to: 'api',
+          label: 'API',
+          position: 'left',
+        },
       ],
+    },
+    docs: {
+      sidebar: {
+        autoCollapseCategories: false,
+      },
     },
     prism: {
       theme: prismThemes.vsLight,
@@ -72,6 +97,24 @@ const config: Config = {
       disableSwitch: true,
     },
   } satisfies Preset.ThemeConfig,
+
+  plugins: [
+    [
+      'docusaurus-plugin-typedoc-api',
+      {
+        projectRoot,
+        packages,
+        readmes: false,
+        changelogs: false,
+        typedocOptions: {
+          excludeProtected: true,
+          excludeInternal: true,
+          excludePrivate: true,
+          hideGenerator: true,
+        },
+      } satisfies Partial<DocusaurusPluginTypeDocApiOptions>,
+    ],
+  ],
 };
 
 export default config;

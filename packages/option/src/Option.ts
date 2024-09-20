@@ -25,7 +25,7 @@ export class Option<T> {
     throw new OptionError("Empty value");
   }
 
-  protected constructor(protected readonly value: T | Option<T>) {
+  protected constructor(protected readonly value: T) {
     Object.freeze(this);
   }
 
