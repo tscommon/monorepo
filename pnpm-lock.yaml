@@ -89,6 +89,8 @@ importers:
 
   packages/option: {}
 
+  packages/synchronized: {}
+
 packages:
 
   '@algolia/autocomplete-core@1.9.3':
