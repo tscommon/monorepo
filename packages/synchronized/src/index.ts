@@ -1,1 +1,1 @@
-export * from "./synchronized";
+export { synchronized } from "./synchronized";

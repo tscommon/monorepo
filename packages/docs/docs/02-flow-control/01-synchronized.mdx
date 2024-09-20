@@ -1,0 +1,29 @@
+import CodeBlock from '@theme/CodeBlock';
+import InstallSection from '@site/src/components/InstallSection';
+import UsageSection from '@site/src/components/UsageSection';
+import PackageDescription from '@site/src/components/PackageDescription';
+
+# Synchronized
+
+<PackageDescription name="synchronized" />
+
+## Installation
+
+<InstallSection name="synchronized" />
+
+## Usage
+
+<UsageSection name="synchronized">
+  <p>Enable decorators:</p>
+  <CodeBlock language="json" title="tsconfig.json">
+    {JSON.stringify(
+      {
+        compilerOptions: {
+          experimentalDecorators: true,
+        },
+      },
+      null,
+      2,
+    )}
+  </CodeBlock>
+</UsageSection>

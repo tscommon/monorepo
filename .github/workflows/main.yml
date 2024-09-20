@@ -14,7 +14,7 @@ env:
 
 jobs:
   release:
-    name: Test - Build - Release
+    name: Build - Test - Release
     runs-on: ubuntu-latest
 
     permissions:
@@ -54,14 +54,14 @@ jobs:
       - name: Lint
         run: pnpm lint
 
+      - name: Build
+        run: pnpm -r build
+
       - name: Test types
         run: pnpm -r test:types
 
       - name: Test with coverage
         run: pnpm test:coverage
-
-      - name: Build
-        run: pnpm -r build
 
       - name: Upload docs
         uses: actions/upload-pages-artifact@v3
