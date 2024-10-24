@@ -80,14 +80,12 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - if: steps.changesets.outputs.published == 'true'
-        uses: codecov/codecov-action@v4
+      - uses: codecov/codecov-action@v4
         with:
           fail_ci_if_error: true
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-      - if: steps.changesets.outputs.published == 'true'
-        id: docs
+      - id: docs
         name: Deploy docs
         uses: actions/deploy-pages@v4

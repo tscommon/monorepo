@@ -1,10 +1,16 @@
+---
+title: Option
+---
+
 import InstallSection from '@site/src/components/InstallSection';
-import UsageSection from '@site/src/components/UsageSection';
+import CodeUsage from '@site/src/components/CodeUsage';
 import PackageDescription from '@site/src/components/PackageDescription';
 
-# Option
+# Option - [API](/api/option)
 
-<PackageDescription name="option" />
+<PackageDescription name="option">
+  In contrast with the full-fledged [`Option<T>`](https://gcanti.github.io/fp-ts/modules/Option.ts.html) from [fp-tp](https://www.npmjs.com/package/fp-ts), this module provides just the bare minimum. If you require more features, consider using [fp-tp](https://www.npmjs.com/package/fp-ts).
+</PackageDescription>
 
 ## Installation
 
@@ -12,4 +18,24 @@ import PackageDescription from '@site/src/components/PackageDescription';
 
 ## Usage
 
-<UsageSection name="option" />
+<CodeUsage
+  module="option"
+  groupId="option"
+  files={[
+    {
+      label: 'Represent optional value',
+      value: 'basic',
+      path: 'examples/index.ts',
+    },
+    {
+      label: 'Unwrap at least one array item',
+      value: 'any',
+      path: 'examples/any.ts',
+    },
+    {
+      label: 'Unwrap all array items',
+      value: 'all',
+      path: 'examples/all.ts',
+    },
+  ]}
+/>

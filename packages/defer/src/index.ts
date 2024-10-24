@@ -1,1 +1,1 @@
-export { DeferFunction } from "./DeferFunction";
+export { DeferFunction } from './DeferFunction';

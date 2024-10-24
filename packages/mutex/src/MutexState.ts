@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 export class MutexState {
-  constructor(
+  public constructor(
     public owner?: object,
-    public lock?: Promise<unknown>,
+    public queue?: Promise<unknown>,
   ) {
     Object.seal(this);
   }

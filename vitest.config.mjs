@@ -9,10 +9,8 @@ export default defineConfig({
         '**/docs/**',
         '**/coverage/**',
         '**/build/**',
-        '**/*.d.ts',
-        '**/*.test-d.ts',
         '**/examples/**',
-        '**/index.ts', // exclude index.ts files
+        '**/index.ts',
       ],
       reporter: ['lcov', 'html'],
       reportOnFailure: true,

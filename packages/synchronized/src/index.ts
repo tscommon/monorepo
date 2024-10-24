@@ -1,1 +1,1 @@
-export { synchronized } from "./synchronized";
+export { synchronized } from './synchronized';

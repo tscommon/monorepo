@@ -1,24 +1,27 @@
-import { Mutex } from "../src";
+import assert from 'assert/strict';
+import { setTimeout } from 'timers/promises';
+import { Mutex } from '../src';
 
-import assert from "node:assert/strict";
+const mutex = new Mutex(0);
 
-interface Counter {
-  value: number;
+async function increment(check: number) {
+  const lock = mutex.lock();
+  try {
+    const counter = await lock;
+    await setTimeout(Math.random() * 1000);
+    assert(counter.value === check);
+    counter.value++;
+  } finally {
+    // It is important to release the lock in a `finally` block.
+    // highlight-next-line
+    lock.release();
+  }
 }
 
 async function main() {
-  const mutex = new Mutex<Counter>({ value: 0 });
-  console.log("Acquiring lock");
-  const lock = mutex.lock();
-  const counter = await lock;
-  console.log("Lock acquired");
-  try {
-    assert(counter.value === 0);
-    console.log("Value is as expected");
-  } finally {
-    lock.release();
-    console.log("Lock released");
-  }
+  increment(0);
+  increment(1);
+  increment(2);
 }
 
 main();

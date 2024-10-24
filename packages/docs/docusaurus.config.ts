@@ -1,15 +1,13 @@
 import type * as Preset from '@docusaurus/preset-classic';
 import type { Config } from '@docusaurus/types';
 import { DocusaurusPluginTypeDocApiOptions } from 'docusaurus-plugin-typedoc-api/lib/types';
-import { readdirSync } from 'fs';
+import { globSync } from 'fs';
 import path from 'path';
 import { themes as prismThemes } from 'prism-react-renderer';
 
-const packages = readdirSync(path.join(__dirname, '..'))
-  .filter((s) => !(s.startsWith('.') || s === 'docs'))
-  .map((packageName) => path.join('packages', packageName));
-
 const projectRoot = path.join(__dirname, '..', '..');
+
+const packages = globSync('packages/*', { cwd: projectRoot }).filter((dir) => !(dir === 'packages/docs'));
 
 const config: Config = {
   title: 'TypeScript Common',
@@ -92,6 +90,17 @@ const config: Config = {
     },
     prism: {
       theme: prismThemes.vsLight,
+      magicComments: [
+        {
+          className: 'theme-code-block-highlighted-line',
+          line: 'highlight-next-line',
+          block: { start: 'highlight-start', end: 'highlight-end' },
+        },
+        {
+          className: 'theme-code-block-error-line',
+          line: 'expect-error-next-line',
+        },
+      ],
     },
     colorMode: {
       disableSwitch: true,

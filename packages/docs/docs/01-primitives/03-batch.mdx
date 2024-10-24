@@ -1,8 +1,12 @@
+---
+title: Batch
+---
+
 import InstallSection from '@site/src/components/InstallSection';
-import UsageSection from '@site/src/components/UsageSection';
+import CodeUsage from '@site/src/components/CodeUsage';
 import PackageDescription from '@site/src/components/PackageDescription';
 
-# Batch
+# Batch - [API](/api/batch)
 
 <PackageDescription name="batch" />
 
@@ -12,10 +16,51 @@ import PackageDescription from '@site/src/components/PackageDescription';
 
 ## Usage
 
-### Synchronous
-
-<UsageSection name="batch" />
-
-### Asynchronous
-
-<UsageSection name="batch" file="async.ts" />
+<CodeUsage
+  module="batch"
+  groupId="batch"
+  files={[
+    {
+      label: 'Synchronous',
+      value: 'synchronous',
+      path: 'examples/for-of.ts',
+    },
+    {
+      label: 'Asynchronous',
+      value: 'asynchronous',
+      path: 'examples/for-await-of.ts',
+    },
+    {
+      label: 'Chaining',
+      value: 'chaining',
+      path: 'examples/chaining.ts',
+      children: (
+        <p>
+          You can chain operations using{' '}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator"
+          >
+            Iterator API (Node 22+)
+          </a>
+          . Use{' '}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://devblogs.microsoft.com/typescript/announcing-typescript-5-6/#iterator-helper-methods"
+          >
+            TypeScript 5.6+
+          </a>{' '}
+          to compile the following code.
+        </p>
+      ),
+    },
+    {
+      label: 'Predicate',
+      value: 'predicate',
+      path: 'examples/predicate.ts',
+      children: <p>You can provide a predicate function to control grouping.</p>,
+    },
+  ]}
+/>

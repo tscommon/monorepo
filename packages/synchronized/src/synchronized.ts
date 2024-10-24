@@ -1,20 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export function synchronized<T extends (...args: any) => Promise<unknown>>(
+/**
+ * Synchronize method calls on the same object.
+ */
+export function synchronized<T extends (...args: any) => Promise<any>>(
   _target: object,
   _propertyKey: string | symbol,
   descriptor: TypedPropertyDescriptor<T>,
 ): TypedPropertyDescriptor<T> | void {
-  const { value: method } = descriptor;
-
-  const locks = new WeakMap<object, Promise<unknown>>();
-
-  function __synchronizer(this: object, ...args: any) {
-    const next = () => method!.apply(this, args);
-    const promise = Promise.resolve(locks.get(this)).then(next, next);
-    locks.set(this, promise);
-    return promise;
+  const queue = new WeakMap<object, Promise<unknown>>();
+  if (typeof descriptor.value === 'function') {
+    const { value: method } = descriptor;
+    descriptor.value = function synchronized(this: object, ...args: unknown[]) {
+      const next = () => method.apply(this, args);
+      const promise = Promise.resolve(queue.get(this)).then(next, next);
+      queue.set(this, promise);
+      return promise;
+    } as T;
   }
-
-  descriptor.value = __synchronizer as T;
 }

@@ -1,8 +1,12 @@
+---
+title: Deferred
+---
+
 import InstallSection from '@site/src/components/InstallSection';
-import UsageSection from '@site/src/components/UsageSection';
+import CodeUsage from '@site/src/components/CodeUsage';
 import PackageDescription from '@site/src/components/PackageDescription';
 
-# Deferred
+# Deferred - [API](/api/deferred)
 
 <PackageDescription name="deferred" />
 
@@ -12,4 +16,19 @@ import PackageDescription from '@site/src/components/PackageDescription';
 
 ## Usage
 
-<UsageSection name="deferred" />
+<CodeUsage
+  module="deferred"
+  groupId="deferred"
+  files={[
+    {
+      label: 'Resolve',
+      value: 'resolve',
+      path: 'examples/resolve.ts',
+    },
+    {
+      label: 'Reject',
+      value: 'reject',
+      path: 'examples/reject.ts',
+    },
+  ]}
+/>

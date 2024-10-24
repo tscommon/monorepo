@@ -1,11 +1,12 @@
-import { setTimeout } from "timers/promises";
-import { synchronized } from "../src";
+import { setTimeout } from 'timers/promises';
+import { synchronized } from '../src';
 
 class SynchronizedObject {
-  @synchronized
+  // highlight-next-line
+  @synchronized // Executes the method serially
   public async execute(value: number): Promise<void> {
-    console.log(value);
     await setTimeout(Math.random() * 1000);
+    console.log(value);
   }
 }
 

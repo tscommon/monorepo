@@ -1,21 +1,21 @@
-import { describe, expect, test } from "vitest";
-import { DeferFunction } from "./DeferFunction";
+import { describe, expect, test } from 'vitest';
+import { DeferFunction } from './DeferFunction';
 
-describe("getDeferFunction", () => {
-  test("defers a sync function", () => {
+describe('getDeferFunction', () => {
+  test('defers a sync function', () => {
     const stack: string[] = [];
     function main() {
       using defer = new DeferFunction();
-      stack.push("start");
-      defer(() => stack.push("a"));
-      defer(() => stack.push("b"));
-      stack.push("end");
+      stack.push('start');
+      defer(() => stack.push('a'));
+      defer(() => stack.push('b'));
+      stack.push('end');
     }
     main();
-    expect(stack.join(" -> ")).toBe("start -> end -> b -> a");
+    expect(stack.join(' -> ')).toBe('start -> end -> b -> a');
   });
 
-  test("defers an async function", async () => {
+  test('defers an async function', async () => {
     function nextTick<T>(fn: () => T) {
       return new Promise<void>((resolve) => {
         process.nextTick(() => {
@@ -27,12 +27,12 @@ describe("getDeferFunction", () => {
     const stack: string[] = [];
     async function main() {
       await using defer = new DeferFunction();
-      stack.push("start");
-      defer(nextTick, () => stack.push("a"));
-      defer(nextTick, () => stack.push("b"));
-      stack.push("end");
+      stack.push('start');
+      defer(nextTick, () => stack.push('a'));
+      defer(nextTick, () => stack.push('b'));
+      stack.push('end');
     }
     await main();
-    expect(stack.join(" -> ")).toBe("start -> end -> b -> a");
+    expect(stack.join(' -> ')).toBe('start -> end -> b -> a');
   });
 });

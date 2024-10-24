@@ -1,9 +1,13 @@
+---
+title: Synchronized
+---
+
 import CodeBlock from '@theme/CodeBlock';
 import InstallSection from '@site/src/components/InstallSection';
-import UsageSection from '@site/src/components/UsageSection';
+import CodeUsage from '@site/src/components/CodeUsage';
 import PackageDescription from '@site/src/components/PackageDescription';
 
-# Synchronized
+# Synchronized - [API](/api/synchronized)
 
 <PackageDescription name="synchronized" />
 
@@ -13,17 +17,27 @@ import PackageDescription from '@site/src/components/PackageDescription';
 
 ## Usage
 
-<UsageSection name="synchronized">
-  <p>Enable decorators:</p>
-  <CodeBlock language="json" title="tsconfig.json">
-    {JSON.stringify(
-      {
-        compilerOptions: {
-          experimentalDecorators: true,
-        },
+<p>Enable decorators:</p>
+<CodeBlock language="json" title="tsconfig.json">
+  {JSON.stringify(
+    {
+      compilerOptions: {
+        experimentalDecorators: true,
       },
-      null,
-      2,
-    )}
-  </CodeBlock>
-</UsageSection>
+    },
+    null,
+    2,
+  )}
+</CodeBlock>
+
+<CodeUsage
+  module="synchronized"
+  groupId="try-lock"
+  files={[
+    {
+      label: 'Synchronized',
+      value: 'synchronized',
+      path: 'examples/index.ts',
+    },
+  ]}
+/>

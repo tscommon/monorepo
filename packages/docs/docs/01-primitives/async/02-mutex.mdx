@@ -1,8 +1,12 @@
+---
+title: Mutex
+---
+
 import InstallSection from '@site/src/components/InstallSection';
-import UsageSection from '@site/src/components/UsageSection';
+import CodeUsage from '@site/src/components/CodeUsage';
 import PackageDescription from '@site/src/components/PackageDescription';
 
-# Mutex
+# Mutex - [API](/api/mutex)
 
 <PackageDescription name="mutex" />
 
@@ -12,14 +16,46 @@ import PackageDescription from '@site/src/components/PackageDescription';
 
 ## Usage
 
-### Automatic Lock (Preferred)
+### Automatic Lock
 
-<UsageSection name="mutex" />
-
-### Manual Lock
-
-<UsageSection name="mutex" file="manual.ts" />
+<CodeUsage
+  module="mutex"
+  groupId="automatic-lock"
+  files={[
+    {
+      label: 'With a lock',
+      value: 'with-mutex',
+      path: 'examples/automatic.ts',
+    },
+    {
+      label: 'Without a lock',
+      value: 'without-mutex',
+      path: 'examples/without-mutex.ts',
+    },
+  ]}
+/>
 
 ### Try Lock
 
-<UsageSection name="mutex" file="try-lock.ts" />
+<CodeUsage
+  module="mutex"
+  groupId="try-lock"
+  files={[
+    {
+      label: 'With a lock',
+      value: 'with-mutex',
+      path: 'examples/try-lock.ts',
+    },
+  ]}
+/>
+
+### Manual Lock
+
+<CodeUsage
+  module="mutex"
+  files={[
+    {
+      path: 'examples/manual.ts',
+    },
+  ]}
+/>

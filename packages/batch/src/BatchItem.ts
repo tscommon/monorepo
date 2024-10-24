@@ -1,8 +1,7 @@
 export class BatchItem<T> {
   public constructor(
-    public readonly batchIndex: number,
-    public readonly itemIndex: number,
-    public readonly item: T,
+    public readonly index: number,
+    public readonly value: T,
   ) {
     Object.freeze(this);
   }

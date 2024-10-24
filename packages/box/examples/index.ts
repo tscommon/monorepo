@@ -1,4 +1,4 @@
-import { Box } from "../src";
+import { Box } from '../src';
 
 function increment(counter: Box<number>) {
   counter.value++;

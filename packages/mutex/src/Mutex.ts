@@ -1,20 +1,22 @@
-import { Option } from "@tscommon/option";
-import { MutextGuard } from "./MutexGuard";
-import { MutexState } from "./MutexState";
-import { MutexTryGuard } from "./MutexTryGuard";
+import { MutexData } from './MutexData';
+import { MutextGuard } from './MutexGuard';
+import { MutexState } from './MutexState';
+import { MutexTryGuard } from './MutexTryGuard';
 
 export class Mutex<T> {
-  protected readonly state = new MutexState();
+  private readonly state = new MutexState();
+  private readonly data: MutexData<T>;
 
-  public constructor(private readonly data: T) {
+  public constructor(data: T) {
+    this.data = new MutexData<T>(data);
     Object.freeze(this);
   }
 
-  public lock(): MutextGuard<T> {
-    return new MutextGuard<T>(this.data, this.state);
+  public lock(): MutextGuard<MutexData<T>> {
+    return new MutextGuard<MutexData<T>>(this.state, this.data);
   }
 
-  public tryLock(): MutextGuard<Option<T>> {
-    return new MutexTryGuard<T>(Option.some(this.data), this.state);
+  public tryLock(): MutextGuard<MutexData<T> | undefined> {
+    return new MutexTryGuard<MutexData<T> | undefined>(this.state, this.data);
   }
 }

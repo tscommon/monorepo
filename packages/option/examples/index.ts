@@ -1,22 +1,13 @@
-import { Option } from "../src";
+import { None, Option, Some } from '../src';
 
-let a: Option<number> = Option.some(42);
+let data: Option<number> = Option.some(42);
 
-switch (a) {
-  case Option.none:
-    console.log("No value");
-    break;
-  default:
-    console.log("Some value");
-    break;
+if (Option.is(data, Some)) {
+  // Data is present
 }
 
-console.log(a.unwrap());
+data = Option.none;
 
-a = Option.none;
-
-switch (a) {
-  case Option.none:
-    console.log("No value");
-    break;
+if (Option.is(data, None)) {
+  // Data is absent
 }

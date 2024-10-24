@@ -1,19 +1,19 @@
-import { DeferFunction } from "../src";
+import { setTimeout } from 'timers/promises';
+import { DeferFunction } from '../src';
 
-function sleep(ms: number): Promise<void> {
-  return new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, ms);
-  });
+async function println(message: string) {
+  await setTimeout(Math.random() * 1000);
+  console.log(message);
 }
 
 async function main() {
-  await using defer = new DeferFunction(); // It is important to use the `using` keyword here.
-  console.log("start");
-  defer(async () => (await sleep(1000), console.log("a")));
-  defer(async () => (await sleep(1000), console.log("b")));
-  console.log("end");
+  // It is important to use the `using` keyword here.
+  // highlight-next-line
+  await using defer = new DeferFunction();
+  console.log('start');
+  defer(() => println('a'));
+  defer(() => println('b'));
+  console.log('end');
 }
 
 main();

@@ -28,10 +28,5 @@
     "build": "tsc -p tsconfig.build.json --outDir dist",
     "test": "vitest --run",
     "test:coverage": "vitest --run --coverage"
-  },
-  "dependencies": {
-    "@tscommon/box": "workspace:^",
-    "@tscommon/option": "workspace:^",
-    "@tscommon/deferred": "workspace:^"
   }
 }

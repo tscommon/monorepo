@@ -5,10 +5,7 @@ export interface DeferFunction {
   <U extends any[], T extends (...args: U) => any>(fn: T, ...args: U): T;
 }
 
-export class DeferFunction
-  extends Function
-  implements Disposable, AsyncDisposable
-{
+export class DeferFunction extends Function implements Disposable, AsyncDisposable {
   protected static readonly handler: ProxyHandler<DeferFunction> = {
     apply: (target, _, args) => {
       target.stack.push(args);

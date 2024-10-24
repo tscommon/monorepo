@@ -7,16 +7,12 @@ const mutex = new Mutex(0);
 async function increment(check: number) {
   // It is important to use the `using` statement to acquire the lock.
   // highlight-next-line
-  await using lock = mutex.tryLock();
+  await using lock = mutex.lock();
+  // We use the `await` keyword to wait for the lock to be acquired.
   const counter = await lock;
-  if (counter) {
-    // We have acquired the lock.
-    await setTimeout(Math.random() * 1000);
-    assert(counter.value === check);
-    counter.value++;
-  } else {
-    // We have not acquired the lock.
-  }
+  await setTimeout(Math.random() * 1000);
+  assert(counter.value === check);
+  counter.value++;
 } // The lock is automatically released when the `using` block ends.
 
 async function main() {
