@@ -1,5 +1,11 @@
 # @tscommon/synchronized
 
+## 0.0.3
+
+### Patch Changes
+
+- cc4a79f: refine API and docs
+
 ## 0.0.2
 
 ### Patch Changes

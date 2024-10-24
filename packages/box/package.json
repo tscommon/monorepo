@@ -1,6 +1,6 @@
 {
   "name": "@tscommon/box",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "author": "7078731+igrek8@users.noreply.github.com",
   "description": "Wraps a value into a box to pass it by reference",
