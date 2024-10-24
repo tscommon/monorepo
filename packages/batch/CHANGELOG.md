@@ -1,5 +1,11 @@
 # @tscommon/batch
 
+## 0.0.2
+
+### Patch Changes
+
+- cc4a79f: refine API and docs
+
 ## 0.0.1
 
 ### Patch Changes
