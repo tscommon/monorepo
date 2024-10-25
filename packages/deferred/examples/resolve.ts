@@ -1,9 +1,13 @@
-import { Deferred } from '../src';
+import { Deferred, DeferredState } from '../src';
 
 async function main() {
   const deferred = new Deferred<number>();
-  process.nextTick(() => deferred.resolve(42));
-  console.log(await deferred); // 42
+  process.nextTick(() => {
+    deferred.resolve(42);
+    console.log(deferred.state === DeferredState.Fulfilled); // true
+  });
+  const value = await deferred;
+  console.log(value); // 42
 }
 
 main();

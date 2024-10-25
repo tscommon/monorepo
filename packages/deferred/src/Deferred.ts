@@ -1,35 +1,89 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export class Deferred<T> implements PromiseLike<T> {
-  protected _resolve!: (value: T) => void;
+import { DeferredState } from './DeferredState';
 
-  protected _reject!: (reason?: any) => void;
-
-  protected readonly _promise: Promise<T>;
+/**
+ * Represents a deferred promise.
+ */
+export class Deferred<T> implements Promise<T> {
+  #resolve!: (value: T | PromiseLike<T>) => void;
+  #reject!: (reason?: any) => void;
+  #promise: Promise<T>;
+  #state: DeferredState = DeferredState.Pending;
 
   public constructor() {
-    this._promise = new Promise<T>((_resolve, _reject) => {
-      this._resolve = _resolve;
-      this._reject = _reject;
+    this.#promise = new Promise<T>((resolve, reject) => {
+      this.#resolve = resolve;
+      this.#reject = reject;
     });
-    Object.freeze(this);
-  }
-
-  public resolve(value: T): void {
-    this._resolve(value);
-  }
-
-  public reject(reason?: any): void {
-    this._reject(reason);
+    if (new.target === Deferred) {
+      Object.freeze(this);
+    }
   }
 
   /**
-   * @internal
+   * Gets the current state of the deferred promise.
+   * @see {@link DeferredState}
+   */
+  public get state(): DeferredState {
+    return this.#state;
+  }
+
+  /**
+   * Resolves the promise with a value or the result of another promise.
+   * @param value The value to resolve the promise with.
+   */
+  public resolve(value: T | PromiseLike<T>): void {
+    if (this.#state === DeferredState.Pending) {
+      this.#state = DeferredState.Fulfilled;
+      this.#resolve(value);
+    }
+  }
+
+  /**
+   * Rejects the promise with a reason.
+   * @param reason The reason why the promise was rejected.
+   */
+  public reject(reason?: any): void {
+    if (this.#state === DeferredState.Pending) {
+      this.#state = DeferredState.Rejected;
+      this.#reject(reason);
+    }
+  }
+
+  /**
+   * Attaches callbacks for the resolution and/or rejection of the promise.
+   * @param onfulfilled The callback to execute when the promise is resolved.
+   * @param onrejected The callback to execute when the promise is rejected.
    */
   public then<TResult1 = T, TResult2 = never>(
     onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null | undefined,
     onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined,
-  ): PromiseLike<TResult1 | TResult2> {
-    return this._promise.then(onfulfilled, onrejected);
+  ): Promise<TResult1 | TResult2> {
+    return this.#promise.then(onfulfilled, onrejected);
+  }
+
+  /**
+   * Attaches a callback for only the rejection of the promise.
+   */
+  public catch<TResult = never>(
+    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null | undefined,
+  ): Promise<T | TResult> {
+    return this.#promise.catch(onrejected);
+  }
+
+  /**
+   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+   */
+  public finally(onfinally?: (() => void) | null | undefined): Promise<T> {
+    return this.#promise.finally(onfinally);
+  }
+
+  /**
+   * Returns a string representation of the object.
+   */
+  public get [Symbol.toStringTag](): string {
+    return 'Deferred';
   }
 }
