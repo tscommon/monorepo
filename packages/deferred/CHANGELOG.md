@@ -1,5 +1,11 @@
 # @tscommon/deferred
 
+## 1.0.0
+
+### Major Changes
+
+- ef3139c: Release a stable version
+
 ## 0.0.2
 
 ### Patch Changes
