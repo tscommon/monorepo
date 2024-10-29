@@ -53,6 +53,12 @@ importers:
 
   packages/batch: {}
 
+  packages/batch-resolver:
+    dependencies:
+      '@tscommon/deferred':
+        specifier: workspace:*
+        version: link:../deferred
+
   packages/box: {}
 
   packages/defer: {}
