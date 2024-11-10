@@ -1,5 +1,11 @@
 # @tscommon/deferred
 
+## 1.0.1
+
+### Patch Changes
+
+- 388304e: Add fixed docs urls to packages homepages
+
 ## 1.0.0
 
 ### Major Changes

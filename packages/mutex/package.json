@@ -1,6 +1,6 @@
 {
   "name": "@tscommon/mutex",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "author": "7078731+igrek8@users.noreply.github.com",
   "description": "A mutual exclusion primitive useful for protecting shared data",
