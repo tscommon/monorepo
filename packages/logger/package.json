@@ -1,6 +1,6 @@
 {
   "name": "@tscommon/logger",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "author": "7078731+igrek8@users.noreply.github.com",
   "description": "A logger for TypeScript projects",

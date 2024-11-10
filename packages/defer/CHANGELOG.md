@@ -1,5 +1,11 @@
 # @tscommon/defer
 
+## 0.0.3
+
+### Patch Changes
+
+- 388304e: Add fixed docs urls to packages homepages
+
 ## 0.0.2
 
 ### Patch Changes

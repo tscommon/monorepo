@@ -1,5 +1,11 @@
 # @tscommon/option
 
+## 0.0.5
+
+### Patch Changes
+
+- 388304e: Add fixed docs urls to packages homepages
+
 ## 0.0.4
 
 ### Patch Changes
