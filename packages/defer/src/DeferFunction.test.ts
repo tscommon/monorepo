@@ -4,7 +4,7 @@ import { DeferFunction } from './DeferFunction';
 describe('getDeferFunction', () => {
   test('defers a sync function', () => {
     const stack: string[] = [];
-    function main() {
+    function main(): void {
       using defer = new DeferFunction();
       stack.push('start');
       defer(() => stack.push('a'));
@@ -16,7 +16,7 @@ describe('getDeferFunction', () => {
   });
 
   test('defers an async function', async () => {
-    function nextTick<T>(fn: () => T) {
+    function nextTick<T>(fn: () => T): Promise<void> {
       return new Promise<void>((resolve) => {
         process.nextTick(() => {
           fn();
@@ -25,7 +25,7 @@ describe('getDeferFunction', () => {
       });
     }
     const stack: string[] = [];
-    async function main() {
+    async function main(): Promise<void> {
       await using defer = new DeferFunction();
       stack.push('start');
       defer(nextTick, () => stack.push('a'));

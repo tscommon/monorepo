@@ -1,6 +1,6 @@
 import { Batch } from '../src';
 
-function isEven(value: number) {
+function isEven(value: number): boolean {
   return value % 2 === 0;
 }
 

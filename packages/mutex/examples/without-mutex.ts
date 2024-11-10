@@ -3,7 +3,7 @@ import { setTimeout } from 'timers/promises';
 
 let counter = 0;
 
-async function increment(check: number) {
+async function increment(check: number): Promise<void> {
   await setTimeout(Math.random() * 1000);
   /**
    * Here we are not using a mutex to protect the counter.
@@ -15,7 +15,7 @@ async function increment(check: number) {
   counter++;
 }
 
-async function main() {
+async function main(): Promise<void> {
   increment(0);
   increment(1);
   increment(2);

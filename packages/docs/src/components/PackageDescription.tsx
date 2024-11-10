@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+
 import React from 'react';
 
 interface PackageDescriptionProps {

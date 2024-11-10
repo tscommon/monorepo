@@ -1,6 +1,6 @@
 import { Box } from '../src';
 
-function increment(counter: Box<number>) {
+function increment(counter: Box<number>): void {
   counter.value++;
 }
 

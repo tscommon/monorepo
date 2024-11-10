@@ -10,7 +10,7 @@ const onResolve = vi.fn((_context: symbol, tasks: readonly Task<number, string>[
 });
 
 class TestResolver extends BatchResolver<symbol, number, string> {
-  protected override onResolve(context: symbol, tasks: readonly Task<number, string>[]) {
+  protected override onResolve(context: symbol, tasks: readonly Task<number, string>[]): void | Promise<void> {
     return onResolve(context, tasks);
   }
 }
@@ -26,12 +26,12 @@ describe('BatchResolver', () => {
     scheduler = new MicroTaskBatchScheduler<number, string>();
     resolver = new TestResolver({
       cacheFactory: {
-        createCache() {
+        createCache(): Map<number, Task<number, string>> {
           return cache;
         },
       },
       schedulerFactory: {
-        createScheduler() {
+        createScheduler(): MicroTaskBatchScheduler<number, string> {
           return scheduler;
         },
       },

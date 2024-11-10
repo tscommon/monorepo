@@ -4,7 +4,7 @@ import { Mutex } from '../src';
 
 const mutex = new Mutex(0);
 
-async function increment(check: number) {
+async function increment(check: number): Promise<void> {
   // It is important to use the `using` statement to acquire the lock.
   // highlight-next-line
   await using lock = mutex.tryLock();
@@ -19,7 +19,7 @@ async function increment(check: number) {
   }
 } // The lock is automatically released when the `using` block ends.
 
-async function main() {
+async function main(): Promise<void> {
   increment(0);
   increment(1);
   increment(2);

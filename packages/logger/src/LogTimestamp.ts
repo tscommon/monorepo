@@ -73,7 +73,10 @@ export class LogTimestamp {
   /**
    * Returns a JSON representation of the timestamp.
    */
-  public toJSON() {
+  public toJSON(): {
+    seconds: number;
+    nanos: number;
+  } {
     return {
       seconds: this.seconds,
       nanos: this.nanos,

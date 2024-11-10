@@ -13,7 +13,7 @@ class SynchronizedObject {
     return this.impl(ms);
   }
 
-  protected impl(ms: number) {
+  protected impl(ms: number): Promise<unknown> {
     return new Promise((resolve, reject) => {
       setTimeout(async () => {
         try {

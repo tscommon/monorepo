@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+
 import React, { type ReactNode } from 'react';
 import CodeBlock from '@theme/CodeBlock';
 import Tabs from '@theme/Tabs';
@@ -18,14 +20,14 @@ interface CodeUsageProps {
   files: CodeFile[];
 }
 
-function resolvePath(str: string, module: string) {
+function resolvePath(str: string, module: string): string {
   if ('../' === str.substring(0, 3)) {
     return `@tscommon/${module}`;
   }
   return str;
 }
 
-function patchImports(str: string, module: string) {
+function patchImports(str: string, module: string): string {
   return str.replace(/from '([^']+)';/g, (_, path) => {
     const resolvedPath = resolvePath(path, module);
     return `from '${resolvedPath}';`;

@@ -12,6 +12,7 @@ export function synchronized<T extends (...args: any) => Promise<any>>(
   if (typeof descriptor.value === 'function') {
     const { value: method } = descriptor;
     descriptor.value = function synchronized(this: object, ...args: unknown[]) {
+      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
       const next = () => method.apply(this, args);
       const promise = Promise.resolve(queue.get(this)).then(next, next);
       queue.set(this, promise);

@@ -1,7 +1,7 @@
 import { Readable } from 'stream';
 import { Batch } from '../src';
 
-async function main() {
+async function main(): Promise<void> {
   const items = Readable.from([1, 2, 3, 4, 5]);
 
   for await (const batch of Batch.fromAsync(items, 3)) {

@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { Mutex } from './Mutex';
 import { MutexData } from './MutexData';
 
-function sleep(ms: number) {
+function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
@@ -15,7 +15,7 @@ describe('Mutex', () => {
   describe('lock', () => {
     test('without locking', async () => {
       let counter = 0;
-      async function inc(wait: number) {
+      async function inc(wait: number): Promise<number> {
         await sleep(wait);
         counter++;
         return counter;
@@ -29,7 +29,7 @@ describe('Mutex', () => {
 
     test('with locking', async () => {
       const mutex = new Mutex(0);
-      async function inc(wait: number) {
+      async function inc(wait: number): Promise<number> {
         await using lock = mutex.lock();
         const counter = await lock;
         await sleep(wait);
@@ -83,7 +83,7 @@ describe('Mutex', () => {
 
   test('releases on exception', async () => {
     const mutex = new Mutex(0);
-    async function verify(check: number) {
+    async function verify(check: number): Promise<number> {
       await using lock = mutex.lock();
       const counter = await lock;
       assert(counter.value === check);

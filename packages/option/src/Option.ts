@@ -46,7 +46,9 @@ export abstract class Option<T> {
    * Option.all(tuple); // Option<[number, string]>
    * ```
    */
-  public static all<T extends readonly Option<unknown>[]>(values: T) {
+  public static all<T extends readonly Option<unknown>[]>(
+    values: T,
+  ): Option<{ -readonly [K in keyof T]: OptionType<T[K]> }> {
     const result: unknown[] = [];
     for (let i = 0; i < values.length; ++i) {
       const option = values[i]!;
@@ -70,7 +72,7 @@ export abstract class Option<T> {
    * Option.any(tuple); // Option<number | string>
    * ```
    */
-  public static any<T extends readonly Option<unknown>[]>(values: T) {
+  public static any<T extends readonly Option<unknown>[]>(values: T): Option<OptionType<T[number]>> {
     for (let i = 0; i < values.length; ++i) {
       const option = values[i];
       if (option instanceof Some) {

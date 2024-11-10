@@ -10,5 +10,11 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   prettier,
-  { ignores: ['**/coverage/', '**/dist/', '**/build/', '**/docs/'] },
+  { ignores: ['**/coverage/', '**/dist/', '**/build/', '**/.docusaurus/'] },
+  {
+    rules: {
+      '@typescript-eslint/explicit-member-accessibility': 'warn',
+      '@typescript-eslint/explicit-function-return-type': 'warn',
+    },
+  },
 ];

@@ -1,6 +1,6 @@
 import { Deferred, DeferredState } from '../src';
 
-async function main() {
+async function main(): Promise<void> {
   const deferred = new Deferred<number>();
   process.nextTick(() => {
     deferred.reject(new Error('Oops!'));

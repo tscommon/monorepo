@@ -1,5 +1,5 @@
 export class Box<T> {
-  constructor(public value: T) {
+  public constructor(public value: T) {
     Object.seal(this);
   }
 }
