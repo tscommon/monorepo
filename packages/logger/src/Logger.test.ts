@@ -58,4 +58,8 @@ describe(Logger.name, () => {
       payload: undefined,
     });
   });
+
+  it('implements toStringTag', () => {
+    expect(String(new Logger())).toBe('[object Logger]');
+  });
 });

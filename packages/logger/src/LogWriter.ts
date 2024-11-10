@@ -14,6 +14,13 @@ export class LogWriter implements ILogWriter {
   }
 
   /**
+   * A string tag that identifies this object as a log writer.
+   */
+  public get [Symbol.toStringTag](): string {
+    return this.constructor.name;
+  }
+
+  /**
    * Writes a log entry to the console. This method is called by the logger.
    * It can be overridden in derived classes to customize the log destination.
    * The default implementation writes the log entry to the console.

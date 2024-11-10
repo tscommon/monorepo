@@ -195,9 +195,19 @@ export class Logger implements ILogger {
    */
   public logLevel?: LogLevel;
 
+  /**
+   * A string tag that identifies this object as a logger.
+   */
+  public get [Symbol.toStringTag](): string {
+    return this.constructor.name;
+  }
+
   public constructor(context?: string, labels?: LogLabels) {
     this.context = context;
     this.labels = labels;
+    if (new.target === Logger) {
+      Object.freeze(this);
+    }
   }
 
   /**

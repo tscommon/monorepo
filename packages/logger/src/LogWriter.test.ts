@@ -118,4 +118,8 @@ describe(LogWriter.name, () => {
       expect(writer['collect'](actual, 0, [])).toEqual(expected);
     });
   });
+
+  it('implements toStringTag', () => {
+    expect(String(writer)).toBe('[object LogWriter]');
+  });
 });
