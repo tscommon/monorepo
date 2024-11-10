@@ -23,6 +23,7 @@
   "bugs": {
     "url": "https://github.com/tscommon/monorepo/issues"
   },
+  "homepage": "https://tscommon.github.io/monorepo/packages/batch",
   "scripts": {
     "build": "tsc -p tsconfig.build.json --outDir dist",
     "test": "vitest --run",

@@ -23,6 +23,7 @@
   "bugs": {
     "url": "https://github.com/tscommon/monorepo/issues"
   },
+  "homepage": "https://tscommon.github.io/monorepo/packages/defer",
   "engineStrict": true,
   "engines": {
     "node": ">=18.8"

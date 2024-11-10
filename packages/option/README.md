@@ -1,4 +1,4 @@
-# [Option](https://tscommon.github.io/monorepo/primitives/option) - [API](https://tscommon.github.io/monorepo/api/option/class/Option)
+# [Option](https://tscommon.github.io/monorepo/packages/option) - [API](https://tscommon.github.io/monorepo/api/option)
 
 [![codecov](https://codecov.io/gh/tscommon/monorepo/graph/badge.svg?token=I222OQNV9L)](https://codecov.io/gh/tscommon/monorepo)
 
