@@ -1,0 +1,60 @@
+---
+title: Logger
+slug: /packages/logger
+---
+
+import CodeBlock from '@theme/CodeBlock';
+import InstallSection from '@site/src/components/InstallSection';
+import CodeUsage from '@site/src/components/CodeUsage';
+import PackageDescription from '@site/src/components/PackageDescription';
+
+# Logger - [API](/api/logger)
+
+<PackageDescription name="logger" />
+
+## Installation
+
+<InstallSection name="logger" />
+
+## Usage
+
+### Basic
+
+<CodeUsage
+  module="logger"
+  files={[
+    {
+      label: 'Logger',
+      value: 'basic',
+      path: 'examples/index.ts',
+    },
+  ]}
+/>
+
+### Development
+
+<CodeUsage
+  module="logger"
+  files={[
+    {
+      label: 'Development Log Writer',
+      value: 'dev',
+      path: 'examples/dev.ts',
+    },
+  ]}
+/>
+
+### Google Cloud
+
+The logger can be used to log errors in a format that is compatible with [Google Cloud Logging](https://cloud.google.com/error-reporting/docs/formatting-error-messages#log-error).
+
+<CodeUsage
+  module="logger"
+  files={[
+    {
+      label: 'Google Cloud',
+      value: 'gcp',
+      path: 'examples/google-cloud.ts',
+    },
+  ]}
+/>
