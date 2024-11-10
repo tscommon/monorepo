@@ -1,0 +1,32 @@
+{
+  "name": "@tscommon/logger",
+  "version": "0.0.0",
+  "license": "MIT",
+  "author": "7078731+igrek8@users.noreply.github.com",
+  "description": "A logger for TypeScript projects",
+  "keywords": [
+    "logger",
+    "logging"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/igrek8/monorepo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/igrek8/monorepo/issues"
+  },
+  "homepage": "https://igrek8.github.io/monorepo/packages/logger",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "vitest --run",
+    "test:coverage": "vitest --run --coverage"
+  }
+}
