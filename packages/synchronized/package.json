@@ -25,6 +25,7 @@
   "bugs": {
     "url": "https://github.com/tscommon/monorepo/issues"
   },
+  "homepage": "https://tscommon.github.io/monorepo/packages/synchronized",
   "scripts": {
     "build": "tsc -p tsconfig.build.json --outDir dist",
     "test": "vitest --run",

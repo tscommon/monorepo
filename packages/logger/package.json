@@ -23,7 +23,7 @@
   "bugs": {
     "url": "https://github.com/tscommon/monorepo/issues"
   },
-  "homepage": "https://igrek8.github.io/monorepo/packages/logger",
+  "homepage": "https://tscommon.github.io/monorepo/packages/logger",
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "test": "vitest --run",
