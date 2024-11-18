@@ -45,7 +45,7 @@ jobs:
       - name: Test with coverage
         run: pnpm test:coverage
 
-      - uses: codecov/codecov-action@v4
+      - uses: codecov/codecov-action@v5
         with:
           fail_ci_if_error: true
         env:
