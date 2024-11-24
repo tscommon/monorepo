@@ -32,6 +32,7 @@ export class Task<Payload, Result> extends Deferred<Result> {
           if (this.#shares > 0 && --this.#shares === 0) {
             this.#controller.abort(signal.reason);
           }
+          // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
           reject(signal.reason);
         },
         { once: true },

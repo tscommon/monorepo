@@ -1,18 +1,20 @@
-/* eslint-disable @typescript-eslint/no-unsafe-declaration-merging */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface DeferFunction {
-  <U extends any[], T extends (...args: U) => any>(fn: T, ...args: U): T;
+  // eslint-disable-next-line @typescript-eslint/prefer-function-type
+  <U extends unknown[], T extends (...args: U) => unknown>(fn: T, ...args: U): T;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class DeferFunction extends Function implements Disposable, AsyncDisposable {
   protected static readonly handler: ProxyHandler<DeferFunction> = {
-    apply: (target, _, args) => {
+    apply: (target, _, args: [Function, unknown[]]) => {
       target.stack.push(args);
     },
   };
 
-  protected readonly stack: any[] = [];
+  protected readonly stack: [Function, unknown[]][] = [];
 
   public constructor() {
     super();

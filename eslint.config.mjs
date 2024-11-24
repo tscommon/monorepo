@@ -1,20 +1,36 @@
+import eslint from '@eslint/js';
 import globals from 'globals';
-import pluginJs from '@eslint/js';
 import tseslint from 'typescript-eslint';
-import prettier from 'eslint-config-prettier';
 
-/** @type {import('eslint').Linter.Config[]} */
-export default [
+export default tseslint.config(
   { files: ['**/*.{js,mjs,cjs,ts}'] },
-  { languageOptions: { globals: globals.node } },
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
-  prettier,
-  { ignores: ['**/coverage/', '**/dist/', '**/build/', '**/.docusaurus/'] },
+  { ignores: ['**/dist/', '**/node_modules/', '**/coverage/', '**/examples/', '**/*.test.ts'] },
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+  eslint.configs.recommended,
+  ...tseslint.configs.strictTypeChecked,
+  ...tseslint.configs.stylisticTypeChecked,
   {
-    rules: {
-      '@typescript-eslint/explicit-member-accessibility': 'warn',
-      '@typescript-eslint/explicit-function-return-type': 'warn',
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
   },
-];
+  {
+    rules: {
+      '@typescript-eslint/explicit-member-accessibility': 'error',
+      '@typescript-eslint/no-extraneous-class': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/explicit-function-return-type': [
+        'error',
+        {
+          allowExpressions: true,
+        },
+      ],
+    },
+  },
+);

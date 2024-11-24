@@ -5,7 +5,7 @@ export class Batch<T> implements Iterable<BatchItem<T>> {
     iterable: Iterable<T>,
     size: number,
     predicate?: (value: T, index: number) => boolean,
-  ): IteratorObject<Batch<T>, undefined, unknown> {
+  ): IteratorObject<Batch<T>, undefined> {
     if (size < 1) {
       throw new RangeError('The size must be greater than or equal to 1.');
     }
@@ -33,7 +33,7 @@ export class Batch<T> implements Iterable<BatchItem<T>> {
     iterable: Iterable<T> | AsyncIterable<T>,
     size: number,
     predicate?: (value: T, index: number) => boolean,
-  ): AsyncIteratorObject<Batch<T>, undefined, unknown> {
+  ): AsyncIteratorObject<Batch<T>, undefined> {
     if (size < 1) {
       throw new RangeError('The size must be greater than or equal to 1.');
     }

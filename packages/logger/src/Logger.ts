@@ -46,7 +46,7 @@ export class Logger implements ILogger {
    * @param payload A map of key-value pairs that provides additional data to be logged.
    */
   public static default(message: string, payload?: LogPayload): void {
-    return this.instance.default(message, payload);
+    this.instance.default(message, payload);
   }
 
   /**
@@ -63,7 +63,7 @@ export class Logger implements ILogger {
    * @param payload A map of key-value pairs that provides additional data to be logged.
    */
   public static debug(message: string, payload?: LogPayload): void {
-    return this.instance.debug(message, payload);
+    this.instance.debug(message, payload);
   }
 
   /**
@@ -80,7 +80,7 @@ export class Logger implements ILogger {
    * @param payload A map of key-value pairs that provides additional data to be logged.
    */
   public static info(message: string, payload?: LogPayload): void {
-    return this.instance.info(message, payload);
+    this.instance.info(message, payload);
   }
 
   /**
@@ -97,7 +97,7 @@ export class Logger implements ILogger {
    * @param payload A map of key-value pairs that provides additional data to be logged.
    */
   public static notice(message: string, payload?: LogPayload): void {
-    return this.instance.notice(message, payload);
+    this.instance.notice(message, payload);
   }
 
   /**
@@ -113,7 +113,7 @@ export class Logger implements ILogger {
    * @param payload A map of key-value pairs that provides additional data to be logged.
    */
   public static warning(message: string, payload?: LogPayload): void {
-    return this.instance.warning(message, payload);
+    this.instance.warning(message, payload);
   }
 
   /**
@@ -129,7 +129,7 @@ export class Logger implements ILogger {
    * @param payload A map of key-value pairs that provides additional data to be logged.
    */
   public static error(message: string, payload?: LogPayload): void {
-    return this.instance.error(message, payload);
+    this.instance.error(message, payload);
   }
 
   /**
@@ -145,7 +145,7 @@ export class Logger implements ILogger {
    * @param payload A map of key-value pairs that provides additional data to be logged.
    */
   public static critical(message: string, payload?: LogPayload): void {
-    return this.instance.critical(message, payload);
+    this.instance.critical(message, payload);
   }
 
   /**
@@ -161,7 +161,7 @@ export class Logger implements ILogger {
    * @param payload A map of key-value pairs that provides additional data to be logged.
    */
   public static alert(message: string, payload?: LogPayload): void {
-    return this.instance.alert(message, payload);
+    this.instance.alert(message, payload);
   }
 
   /**
@@ -177,7 +177,7 @@ export class Logger implements ILogger {
    * @param payload A map of key-value pairs that provides additional data to be logged.
    */
   public static emergency(message: string, payload?: LogPayload): void {
-    return this.instance.emergency(message, payload);
+    this.instance.emergency(message, payload);
   }
 
   /**
@@ -215,7 +215,7 @@ export class Logger implements ILogger {
    */
   protected write(severity: LogLevel, message: string, payload?: LogPayload): void {
     if (severity >= (this.logLevel ?? Logger.logLevel)) {
-      return Logger.writer.write({
+      Logger.writer.write({
         timestamp: new LogTimestamp(),
         severity,
         message,
@@ -227,38 +227,38 @@ export class Logger implements ILogger {
   }
 
   public default(message: string, payload?: LogPayload): void {
-    return this.write(LogLevel.DEFAULT, message, payload);
+    this.write(LogLevel.DEFAULT, message, payload);
   }
 
   public debug(message: string, payload?: LogPayload): void {
-    return this.write(LogLevel.DEBUG, message, payload);
+    this.write(LogLevel.DEBUG, message, payload);
   }
 
   public info(message: string, payload?: LogPayload): void {
-    return this.write(LogLevel.INFO, message, payload);
+    this.write(LogLevel.INFO, message, payload);
   }
 
   public notice(message: string, payload?: LogPayload): void {
-    return this.write(LogLevel.NOTICE, message, payload);
+    this.write(LogLevel.NOTICE, message, payload);
   }
 
   public warning(message: string, payload?: LogPayload): void {
-    return this.write(LogLevel.WARNING, message, payload);
+    this.write(LogLevel.WARNING, message, payload);
   }
 
   public error(message: string, payload?: LogPayload): void {
-    return this.write(LogLevel.ERROR, message, payload);
+    this.write(LogLevel.ERROR, message, payload);
   }
 
   public critical(message: string, payload?: LogPayload): void {
-    return this.write(LogLevel.CRITICAL, message, payload);
+    this.write(LogLevel.CRITICAL, message, payload);
   }
 
   public alert(message: string, payload?: LogPayload): void {
-    return this.write(LogLevel.ALERT, message, payload);
+    this.write(LogLevel.ALERT, message, payload);
   }
 
   public emergency(message: string, payload?: LogPayload): void {
-    return this.write(LogLevel.EMERGENCY, message, payload);
+    this.write(LogLevel.EMERGENCY, message, payload);
   }
 }

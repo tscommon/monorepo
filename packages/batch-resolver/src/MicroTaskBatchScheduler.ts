@@ -16,6 +16,7 @@ export class MicroTaskBatchScheduler<Payload, Result> implements BatchScheduler<
     if (!this.#scheduled) {
       queueMicrotask(() => {
         if (!this.#signal?.aborted) {
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           this.#onSchedule?.(this.#tasks);
           this.#tasks = [];
           this.#scheduled = false;

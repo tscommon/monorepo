@@ -28,5 +28,8 @@
     "build": "tsc -p tsconfig.build.json",
     "test": "vitest --run",
     "test:coverage": "vitest --run --coverage"
+  },
+  "devDependencies": {
+    "@types/node": "22.9.3"
   }
 }

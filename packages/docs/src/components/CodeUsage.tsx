@@ -1,13 +1,11 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-
-import React, { type ReactNode } from 'react';
 import CodeBlock from '@theme/CodeBlock';
-import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+import React, { type ReactNode } from 'react';
 
 interface CodeFile {
   label?: string;
-  value?: string;
+  value: string;
   default?: boolean;
   title: string;
   path: string;
@@ -28,7 +26,7 @@ function resolvePath(str: string, module: string): string {
 }
 
 function patchImports(str: string, module: string): string {
-  return str.replace(/from '([^']+)';/g, (_, path) => {
+  return str.replace(/from '([^']+)';/g, (_, path: string) => {
     const resolvedPath = resolvePath(path, module);
     return `from '${resolvedPath}';`;
   });
@@ -36,9 +34,10 @@ function patchImports(str: string, module: string): string {
 
 const CodeUsage: React.FC<React.PropsWithChildren<CodeUsageProps>> = ({ groupId, module, files }) => {
   const blocks = files.map((file: CodeFile, index) => {
-    const { default: content } = require(`!!raw-loader!../../../${module}/${file.path}`);
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { default: content } = require(`!!raw-loader!../../../${module}/${file.path}`) as { default: string };
     const code = (
-      <CodeBlock key={index} language="ts" showLineNumbers title={file.title ?? 'main.ts'}>
+      <CodeBlock key={index} language="ts" showLineNumbers title={file.title}>
         {patchImports(content, module)}
       </CodeBlock>
     );

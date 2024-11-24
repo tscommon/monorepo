@@ -7,7 +7,7 @@ export class LogWriter implements ILogWriter {
    * Initializes a new instance.
    * @param maxDepth The maximum depth of the data to collect. Default is `3`.
    */
-  public constructor(protected readonly maxDepth: number = 3) {
+  public constructor(protected readonly maxDepth = 3) {
     if (new.target === LogWriter) {
       Object.freeze(this);
     }
@@ -102,36 +102,36 @@ export class LogWriter implements ILogWriter {
         }
         switch (data.constructor) {
           case Date:
-            return (<Date>data).toISOString();
+            return (data as Date).toISOString();
           case RegExp:
             return String(data);
           case Array: {
-            const array = new Array<unknown>((<Array<unknown>>data).length);
+            const array = new Array<unknown>((data as unknown[]).length);
             for (let i = 0; i < array.length; ++i) {
-              const element = (<Array<unknown>>data)[i];
+              const element = (data as unknown[])[i];
               array[i] = this.collect(element, depth + 1, [...path, i]);
             }
             return array;
           }
           case Set: {
             let index = 0;
-            const array = new Array<unknown>((<Set<unknown>>data).size);
-            (<Set<unknown>>data).forEach((value) => {
+            const array = new Array<unknown>((data as Set<unknown>).size);
+            (data as Set<unknown>).forEach((value) => {
               array[index++] = this.collect(value, depth + 1, [...path, index]);
             });
             return array;
           }
           case Map: {
-            const map: Record<string, unknown> = Object.create(null);
-            (<Map<unknown, unknown>>data).forEach((value, key) => {
+            const map = Object.create(null) as Record<string, unknown>;
+            (data as Map<unknown, unknown>).forEach((value, key) => {
               map[String(key)] = this.collect(value, depth + 1, [...path, String(key)]);
             });
             return map;
           }
           default: {
-            const map: Record<string, unknown> = Object.create(null);
+            const map = Object.create(null) as Record<string, unknown>;
             Object.getOwnPropertyNames(data).forEach((key) => {
-              const value = (<Record<string, unknown>>data)[key];
+              const value = (data as Record<string, unknown>)[key];
               map[key] = this.collect(value, depth + 1, [...path, key]);
             });
             return map;
