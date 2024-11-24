@@ -23,6 +23,7 @@ export class MutextGuard<T> implements PromiseLike<T>, AsyncDisposable {
   /**
    * @internal
    */
+  // eslint-disable-next-line @typescript-eslint/require-await
   public async [Symbol.asyncDispose](): Promise<void> {
     this.release();
   }

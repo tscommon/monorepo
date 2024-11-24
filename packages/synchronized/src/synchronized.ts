@@ -7,7 +7,7 @@ export function synchronized<T extends (...args: any) => Promise<any>>(
   _target: object,
   _propertyKey: string | symbol,
   descriptor: TypedPropertyDescriptor<T>,
-): TypedPropertyDescriptor<T> | void {
+): TypedPropertyDescriptor<T> {
   const queue = new WeakMap<object, Promise<unknown>>();
   if (typeof descriptor.value === 'function') {
     const { value: method } = descriptor;
@@ -19,4 +19,5 @@ export function synchronized<T extends (...args: any) => Promise<any>>(
       return promise;
     } as T;
   }
+  return descriptor;
 }

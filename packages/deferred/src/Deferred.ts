@@ -57,8 +57,8 @@ export class Deferred<T> implements Promise<T> {
    * @param onrejected The callback to execute when the promise is rejected.
    */
   public then<TResult1 = T, TResult2 = never>(
-    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null | undefined,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined,
+    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
+    onrejected?: ((reason: unknown) => TResult2 | PromiseLike<TResult2>) | null,
   ): Promise<TResult1 | TResult2> {
     return this.#promise.then(onfulfilled, onrejected);
   }
@@ -67,7 +67,7 @@ export class Deferred<T> implements Promise<T> {
    * Attaches a callback for only the rejection of the promise.
    */
   public catch<TResult = never>(
-    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null | undefined,
+    onrejected?: ((reason: unknown) => TResult | PromiseLike<TResult>) | null,
   ): Promise<T | TResult> {
     return this.#promise.catch(onrejected);
   }
@@ -76,14 +76,12 @@ export class Deferred<T> implements Promise<T> {
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
    * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
    */
-  public finally(onfinally?: (() => void) | null | undefined): Promise<T> {
+  public finally(onfinally?: (() => void) | null): Promise<T> {
     return this.#promise.finally(onfinally);
   }
 
   /**
    * Returns a string representation of the object.
    */
-  public get [Symbol.toStringTag](): string {
-    return 'Deferred';
-  }
+  public readonly [Symbol.toStringTag] = 'Deferred';
 }

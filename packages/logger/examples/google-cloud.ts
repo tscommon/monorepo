@@ -1,15 +1,28 @@
 import { Logger, LogWriter, type LogEntry } from '../src';
 
-class GoogleCloudLogWriter extends LogWriter {
-  private captureStackTrace(entry: LogEntry): string | undefined {
-    return entry.payload?.['error'] instanceof Error ? entry.payload['error'].stack : undefined;
+export class GoogleCloudLogWriter extends LogWriter {
+  #logs: LogEntry[] = [];
+  #isScheduled = false;
+
+  public override write(entry: LogEntry): void {
+    this.#logs.push(entry);
+    if (!this.#isScheduled) {
+      // Buffer logs and write them at the end of the event loop.
+      // highlight-next-line
+      setImmediate(() => {
+        this.#logs.forEach((log) => super.write(log));
+        this.#isScheduled = false;
+        this.#logs = [];
+      });
+      this.#isScheduled = true;
+    }
   }
 
   protected override serialize(entry: LogEntry): string {
     const log = this.transform(entry);
-    // Include `stack_trace` in the log entry.
+    // Enables error reporting in Google Cloud Logging.
     // highlight-next-line
-    log['stack_trace'] = this.captureStackTrace(entry);
+    log.stack_trace = entry.payload?.error instanceof Error ? entry.payload.error.stack : undefined;
     return JSON.stringify(log);
   }
 }

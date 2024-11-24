@@ -50,7 +50,9 @@ export abstract class Option<T> {
     values: T,
   ): Option<{ -readonly [K in keyof T]: OptionType<T[K]> }> {
     const result: unknown[] = [];
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let i = 0; i < values.length; ++i) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const option = values[i]!;
       if (option instanceof None) {
         return this.none;
@@ -73,6 +75,7 @@ export abstract class Option<T> {
    * ```
    */
   public static any<T extends readonly Option<unknown>[]>(values: T): Option<OptionType<T[number]>> {
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let i = 0; i < values.length; ++i) {
       const option = values[i];
       if (option instanceof Some) {
@@ -147,9 +150,7 @@ export class Some<T> extends Option<T> {
     return this._value;
   }
 
-  protected get [Symbol.toStringTag](): string {
-    return 'Some';
-  }
+  public readonly [Symbol.toStringTag] = 'Some';
 }
 
 export class None extends Option<never> {
@@ -167,9 +168,7 @@ export class None extends Option<never> {
     }
   }
 
-  protected get [Symbol.toStringTag](): string {
-    return 'None';
-  }
+  public readonly [Symbol.toStringTag] = 'None';
 }
 
 /**
