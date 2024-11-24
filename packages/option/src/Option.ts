@@ -52,6 +52,7 @@ export abstract class Option<T> {
     const result: unknown[] = [];
     // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let i = 0; i < values.length; ++i) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const option = values[i]!;
       if (option instanceof None) {
         return this.none;

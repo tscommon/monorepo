@@ -27,6 +27,7 @@ export class DeferFunction extends Function implements Disposable, AsyncDisposab
    */
   public [Symbol.dispose](): void {
     for (let i = this.stack.length - 1; i >= 0; --i) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const [fn, ...args] = this.stack[i]!;
       fn.call(null, ...args);
     }
@@ -37,6 +38,7 @@ export class DeferFunction extends Function implements Disposable, AsyncDisposab
    */
   public async [Symbol.asyncDispose](): Promise<void> {
     for (let i = this.stack.length - 1; i >= 0; --i) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const [fn, ...args] = this.stack[i]!;
       await fn.call(null, ...args);
     }

@@ -104,7 +104,8 @@ export class LogWriter implements ILogWriter {
           case Date:
             return (data as Date).toISOString();
           case RegExp:
-            return String(data);
+            // eslint-disable-next-line @typescript-eslint/no-base-to-string
+            return data.toString();
           case Array: {
             const array = new Array<unknown>((data as unknown[]).length);
             for (let i = 0; i < array.length; ++i) {

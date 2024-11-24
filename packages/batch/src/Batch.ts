@@ -73,6 +73,7 @@ export class Batch<T> implements Iterable<BatchItem<T>> {
    */
   public *[Symbol.iterator](): Iterator<BatchItem<T>> {
     for (let index = 0; index < this.items.length; ++index) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       yield new BatchItem(index, this.items[index]!);
     }
   }

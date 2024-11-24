@@ -26,16 +26,11 @@ export default tseslint.config(
       },
       parserOptions: {
         projectService: true,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        tsconfigRootDir: import.meta.dirname,
       },
     },
   },
   {
     rules: {
-      '@typescript-eslint/explicit-member-accessibility': 'error',
-      '@typescript-eslint/no-extraneous-class': 'off',
-      '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/explicit-function-return-type': [
         'error',
         {
