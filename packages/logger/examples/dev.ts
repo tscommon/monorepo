@@ -39,3 +39,15 @@ class DevLogWriter extends LogWriter {
 }
 
 Logger.writer = new DevLogWriter();
+
+const logger = new Logger('app');
+
+logger.info('Server started.', { port: 3000 });
+logger.error('Something went wrong.', { error: new Error('An error occurred.') });
+
+// Output
+// 01/01/2024, 09:00:00 [INFO] (app) Server started. { port: 3000 }
+// 01/01/2024, 09:00:00 [ERROR] (app) Something went wrong. {
+//   error: Error: An error occurred.
+//       ...
+// }

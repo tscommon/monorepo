@@ -4,7 +4,17 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   { files: ['**/*.{js,mjs,cjs,ts}'] },
-  { ignores: ['**/dist/', '**/node_modules/', '**/coverage/', '**/examples/', '**/*.test.ts'] },
+  {
+    ignores: [
+      '**/dist/',
+      '**/build/',
+      '**/.docusaurus/',
+      '**/node_modules/',
+      '**/coverage/',
+      '**/examples/',
+      '**/*.test.ts',
+    ],
+  },
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
@@ -16,6 +26,7 @@ export default tseslint.config(
       },
       parserOptions: {
         projectService: true,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         tsconfigRootDir: import.meta.dirname,
       },
     },
