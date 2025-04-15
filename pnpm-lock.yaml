@@ -65,10 +65,10 @@ importers:
   packages/docs:
     dependencies:
       '@docusaurus/core':
-        specifier: 3.6.3
+        specifier: 3.7.0
         version: 3.7.0(@mdx-js/react@3.1.0(@types/react@19.1.2)(react@19.1.0))(acorn@8.14.1)(eslint@9.24.0(jiti@2.3.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)
       '@docusaurus/preset-classic':
-        specifier: 3.6.3
+        specifier: 3.7.0
         version: 3.7.0(@algolia/client-search@5.23.4)(@mdx-js/react@3.1.0(@types/react@19.1.2)(react@19.1.0))(@types/react@19.1.2)(acorn@8.14.1)(eslint@9.24.0(jiti@2.3.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(search-insights@2.17.2)(typescript@5.8.3)
       '@mdx-js/react':
         specifier: ^3.1.0
@@ -80,41 +80,41 @@ importers:
         specifier: 4.4.0
         version: 4.4.0(@docusaurus/core@3.7.0(@mdx-js/react@3.1.0(@types/react@19.1.2)(react@19.1.0))(acorn@8.14.1)(eslint@9.24.0(jiti@2.3.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3))(@docusaurus/mdx-loader@3.7.0(acorn@8.14.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@mdx-js/react@3.1.0(@types/react@19.1.2)(react@19.1.0))(acorn@8.14.1)(eslint@9.24.0(jiti@2.3.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)
       prism-react-renderer:
-        specifier: ^2.4.0
+        specifier: ^2.4.1
         version: 2.4.1(react@19.1.0)
       react:
-        specifier: ^18.3.1
+        specifier: ^19.1.0
         version: 19.1.0
       react-dom:
-        specifier: ^18.3.1
+        specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
     devDependencies:
       '@docusaurus/module-type-aliases':
-        specifier: 3.6.3
+        specifier: 3.7.0
         version: 3.7.0(acorn@8.14.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@docusaurus/tsconfig':
-        specifier: 3.6.3
+        specifier: 3.7.0
         version: 3.7.0
       '@docusaurus/types':
-        specifier: 3.6.3
+        specifier: 3.7.0
         version: 3.7.0(acorn@8.14.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@types/node':
-        specifier: 22.9.3
+        specifier: 22.14.1
         version: 22.14.1
       '@types/react':
-        specifier: 18.3.12
+        specifier: 19.1.2
         version: 19.1.2
       raw-loader:
         specifier: 4.0.2
         version: 4.0.2(webpack@5.99.5)
       typescript:
-        specifier: 5.7.2
+        specifier: 5.8.3
         version: 5.8.3
 
   packages/logger:
     devDependencies:
       '@types/node':
-        specifier: 22.9.3
+        specifier: 22.14.1
         version: 22.14.1
 
   packages/mutex: {}
