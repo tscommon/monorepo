@@ -32,7 +32,8 @@ export default defineConfig([
   {
     rules: {
       '@typescript-eslint/explicit-function-return-type': ['error', { allowExpressions: true }],
-      '@typescript-eslint/class-literal-property-style': ['off'],
+      '@typescript-eslint/class-literal-property-style': 'off',
+      '@typescript-eslint/explicit-member-accessibility': 'error',
     },
   },
 ]);
