@@ -5,7 +5,7 @@ import { DeferredState } from './DeferredState';
 /**
  * Represents a deferred promise.
  */
-export class Deferred<T> implements Promise<T> {
+export class Deferred<T> implements PromiseLike<T> {
   #resolve!: (value: T | PromiseLike<T>) => void;
   #reject!: (reason?: any) => void;
   #promise: Promise<T>;
@@ -52,9 +52,10 @@ export class Deferred<T> implements Promise<T> {
   }
 
   /**
-   * Attaches callbacks for the resolution and/or rejection of the promise.
-   * @param onfulfilled The callback to execute when the promise is resolved.
-   * @param onrejected The callback to execute when the promise is rejected.
+   * Attaches callbacks for the resolution and/or rejection of the Promise.
+   * @param onfulfilled The callback to execute when the Promise is resolved.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of which ever callback is executed.
    */
   public then<TResult1 = T, TResult2 = never>(
     onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
@@ -64,7 +65,9 @@ export class Deferred<T> implements Promise<T> {
   }
 
   /**
-   * Attaches a callback for only the rejection of the promise.
+   * Attaches a callback for only the rejection of the Promise.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of the callback.
    */
   public catch<TResult = never>(
     onrejected?: ((reason: unknown) => TResult | PromiseLike<TResult>) | null,
@@ -74,14 +77,19 @@ export class Deferred<T> implements Promise<T> {
 
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+   * resolved value cannot be modified from the callback.
    * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+   * @returns A Promise for the completion of the callback.
    */
   public finally(onfinally?: (() => void) | null): Promise<T> {
     return this.#promise.finally(onfinally);
   }
 
   /**
-   * Returns a string representation of the object.
+   * A String value that is used in the creation of the default string description of an object.
+   * Called by the built-in method Object.prototype.toString.
    */
-  public readonly [Symbol.toStringTag] = 'Deferred';
+  public get [Symbol.toStringTag](): string {
+    return 'Deferred';
+  }
 }
