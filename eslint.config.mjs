@@ -2,7 +2,10 @@ import eslint from '@eslint/js';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
+/**
+ * @type {import('eslint').Linter.FlatConfig[]}
+ */
+const config = tseslint.config(
   { files: ['**/*.{js,mjs,cjs,ts}'] },
   {
     ignores: [
@@ -36,6 +39,9 @@ export default tseslint.config(
           allowExpressions: true,
         },
       ],
+      '@typescript-eslint/class-literal-property-style': ['off'],
     },
   },
 );
+
+export default config;
