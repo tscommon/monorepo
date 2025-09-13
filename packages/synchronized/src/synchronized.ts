@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+const queue = new WeakMap<object, Promise<unknown>>();
+
 /**
  * Synchronize method calls on the same object.
  */
@@ -8,7 +10,6 @@ export function synchronized<T extends (...args: any) => Promise<any>>(
   _propertyKey: string | symbol,
   descriptor: TypedPropertyDescriptor<T>,
 ): TypedPropertyDescriptor<T> {
-  const queue = new WeakMap<object, Promise<unknown>>();
   if (typeof descriptor.value === 'function') {
     const { value: method } = descriptor;
     descriptor.value = function synchronized(this: object, ...args: unknown[]) {
