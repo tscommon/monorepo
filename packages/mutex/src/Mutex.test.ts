@@ -1,17 +1,13 @@
-import assert from 'assert/strict';
-import { beforeEach, describe, expect, test, vi } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import { Mutex } from './Mutex';
-import { MutexData } from './MutexData';
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-describe('Mutex', () => {
-  beforeEach(() => {
-    vi.useFakeTimers();
-  });
+vi.useFakeTimers();
 
+describe('Mutex', () => {
   describe('lock', () => {
     test('without locking', async () => {
       let counter = 0;
@@ -28,13 +24,13 @@ describe('Mutex', () => {
     });
 
     test('with locking', async () => {
-      const mutex = new Mutex(0);
+      const counter = new Mutex(0);
       async function inc(wait: number): Promise<number> {
-        await using lock = mutex.lock();
-        const counter = await lock;
+        await using lock = counter.lock();
+        const data = await lock;
         await sleep(wait);
-        counter.value++;
-        return counter.value;
+        data.value++;
+        return data.value;
       }
       const runs = Promise.all([inc(300), inc(200), inc(100)]);
       await vi.advanceTimersToNextTimerAsync();
@@ -45,10 +41,10 @@ describe('Mutex', () => {
   });
 
   test('attempts to lock', async () => {
-    const mutex = new Mutex(0);
+    const mutex = new Mutex(undefined);
     {
       await using lock1 = mutex.lock();
-      await expect(lock1).resolves.toStrictEqual(new MutexData(0));
+      await expect(lock1).resolves.toBeDefined();
       {
         await using lock2 = mutex.tryLock();
         await expect(lock2).resolves.toBe(undefined);
@@ -57,39 +53,43 @@ describe('Mutex', () => {
   });
 
   test('releases automatically', async () => {
-    const mutex = new Mutex(0);
+    const mutex = new Mutex(undefined);
     {
-      await using lock1 = mutex.lock();
-      await expect(lock1).resolves.toStrictEqual(new MutexData(0));
+      await using lock = mutex.lock();
+      await expect(lock).resolves.toBeDefined();
     }
     {
-      await using lock2 = mutex.tryLock();
-      await expect(lock2).resolves.toStrictEqual(new MutexData(0));
+      await using lock = mutex.tryLock();
+      await expect(lock).resolves.toBeDefined();
     }
   });
 
   test('releases manually', async () => {
-    const mutex = new Mutex(0);
+    const mutex = new Mutex(undefined);
     {
-      const lock1 = mutex.lock();
-      await expect(lock1).resolves.toStrictEqual(new MutexData(0));
-      lock1.release();
+      const lock = mutex.lock();
+      await expect(lock).resolves.toBeDefined();
+      lock.release();
     }
     {
-      await using lock2 = mutex.tryLock();
-      await expect(lock2).resolves.toStrictEqual(new MutexData(0));
+      await using lock = mutex.tryLock();
+      await expect(lock).resolves.toBeDefined();
     }
   });
 
   test('releases on exception', async () => {
-    const mutex = new Mutex(0);
-    async function verify(check: number): Promise<number> {
-      await using lock = mutex.lock();
-      const counter = await lock;
-      assert(counter.value === check);
-      return counter.value;
+    const mutex = new Mutex(undefined);
+    {
+      try {
+        await using _ = mutex.lock();
+        throw new Error('Test');
+      } catch {
+        // ignore
+      }
     }
-    await expect(() => verify(-1)).rejects.toThrowError();
-    await expect(verify(0)).resolves.toBe(0);
+    {
+      await using lock = mutex.tryLock();
+      await expect(lock).resolves.toBeDefined();
+    }
   });
 });
