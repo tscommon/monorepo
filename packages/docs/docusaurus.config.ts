@@ -93,12 +93,12 @@ const config: Config = {
       magicComments: [
         {
           className: 'theme-code-block-highlighted-line',
-          line: 'highlight-next-line',
-          block: { start: 'highlight-start', end: 'highlight-end' },
+          line: '@code/highlight',
+          block: { start: '@code/highlight-start', end: '@code/highlight-end' },
         },
         {
           className: 'theme-code-block-error-line',
-          line: 'expect-error-next-line',
+          line: '@code/error',
         },
       ],
     },

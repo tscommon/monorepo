@@ -28,8 +28,8 @@
     "test": "vitest --run",
     "test:coverage": "vitest --run --coverage"
   },
-  "dependencies": {
-    "@tscommon/deferred": "*"
+  "peerDependencies": {
+    "@tscommon/deferred": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "*"
