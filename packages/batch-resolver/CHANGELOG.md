@@ -1,5 +1,14 @@
 # @tscommon/batch-resolver
 
+## 0.0.3
+
+### Patch Changes
+
+- 59c5a0d: Refine batch resolver. Added a new task construct
+- Updated dependencies [b5e11d7]
+- Updated dependencies [59c5a0d]
+  - @tscommon/task@0.0.1
+
 ## 0.0.2
 
 ### Patch Changes

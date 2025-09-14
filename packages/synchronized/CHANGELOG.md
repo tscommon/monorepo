@@ -1,5 +1,12 @@
 # @tscommon/synchronized
 
+## 0.0.5
+
+### Patch Changes
+
+- 5d12696: Share an initialised global weak map immediately on decorator import/require
+- 59c5a0d: Refine batch resolver. Added a new task construct
+
 ## 0.0.4
 
 ### Patch Changes

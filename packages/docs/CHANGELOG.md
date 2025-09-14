@@ -1,5 +1,12 @@
 # @tscommon/docs
 
+## 0.0.5
+
+### Patch Changes
+
+- b5e11d7: add Task to associate payload with async operation
+- 59c5a0d: Refine batch resolver. Added a new task construct
+
 ## 0.0.4
 
 ### Patch Changes

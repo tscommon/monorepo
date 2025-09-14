@@ -1,5 +1,12 @@
 # @tscommon/deferred
 
+## 1.0.2
+
+### Patch Changes
+
+- 599279c: made String.toStringTag as property and copied comments from Promise methods
+- 59c5a0d: Refine batch resolver. Added a new task construct
+
 ## 1.0.1
 
 ### Patch Changes

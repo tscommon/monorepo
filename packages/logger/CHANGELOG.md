@@ -1,5 +1,11 @@
 # @tscommon/logger
 
+## 0.0.3
+
+### Patch Changes
+
+- 59c5a0d: Refine batch resolver. Added a new task construct
+
 ## 0.0.2
 
 ### Patch Changes
