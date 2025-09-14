@@ -2,7 +2,7 @@ import { setTimeout } from 'timers/promises';
 import { synchronized } from '../src';
 
 class SynchronizedObject {
-  // highlight-next-line
+  // @code/highlight
   @synchronized // Executes the method serially
   public async execute(value: number): Promise<void> {
     await setTimeout(Math.random() * 1000);

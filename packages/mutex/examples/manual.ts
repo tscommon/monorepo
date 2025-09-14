@@ -13,7 +13,7 @@ async function increment(check: number): Promise<void> {
     counter.value++;
   } finally {
     // It is important to release the lock in a `finally` block.
-    // highlight-next-line
+    // @code/highlight
     lock.release();
   }
 }

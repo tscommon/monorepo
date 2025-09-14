@@ -6,7 +6,7 @@ const mutex = new Mutex(0);
 
 async function increment(check: number): Promise<void> {
   // It is important to use the `using` statement to acquire the lock.
-  // highlight-next-line
+  // @code/highlight
   await using lock = mutex.tryLock();
   const counter = await lock;
   if (counter) {

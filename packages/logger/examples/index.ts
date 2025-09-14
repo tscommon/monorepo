@@ -3,7 +3,7 @@ import { Logger, LogLevel } from '../src';
 const logger = new Logger();
 
 // Sets the log level to INFO.
-// highlight-next-line
+// @code/highlight
 Logger.logLevel = LogLevel.INFO;
 
 logger.info('Hello, world!');

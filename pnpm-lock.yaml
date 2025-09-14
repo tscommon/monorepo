@@ -52,9 +52,13 @@ importers:
 
   packages/batch-resolver:
     dependencies:
-      '@tscommon/deferred':
+      '@tscommon/task':
         specifier: workspace:*
-        version: link:../deferred
+        version: link:../task
+    devDependencies:
+      '@types/node':
+        specifier: '*'
+        version: 24.3.3
 
   packages/box: {}
 
@@ -126,8 +130,8 @@ importers:
   packages/task:
     dependencies:
       '@tscommon/deferred':
-        specifier: '*'
-        version: 1.0.1
+        specifier: workspace:*
+        version: link:../deferred
     devDependencies:
       '@types/node':
         specifier: '*'
@@ -1868,9 +1872,6 @@ packages:
   '@trysound/sax@0.2.0':
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
-
-  '@tscommon/deferred@1.0.1':
-    resolution: {integrity: sha512-n7Kn9gnDxyQDgvvAa1lNO/yd8vAyYX7tFKDTD+kcvy3yiQi94wJ6JhELS9pRR5c9Rq68mPXCBIpvjF5LytrnNA==}
 
   '@tsconfig/node10@1.0.11':
     resolution: {integrity: sha512-DcRjDCujK/kCk/cUe8Xz8ZSpm8mS3mNNpta+jGCA6USEDfktlNvm1+IuZ9eTcDbNk41BHwpHHeW+N1lKCz4zOw==}
@@ -8847,8 +8848,6 @@ snapshots:
       defer-to-connect: 2.0.1
 
   '@trysound/sax@0.2.0': {}
-
-  '@tscommon/deferred@1.0.1': {}
 
   '@tsconfig/node10@1.0.11': {}
 

@@ -8,7 +8,7 @@ export class GoogleCloudLogWriter extends LogWriter {
     this.#logs.push(entry);
     if (!this.#isScheduled) {
       // Buffer logs and write them at the end of the event loop.
-      // highlight-next-line
+      // @code/highlight
       setImmediate(() => {
         this.#logs.forEach((log) => super.write(log));
         this.#isScheduled = false;
@@ -21,14 +21,14 @@ export class GoogleCloudLogWriter extends LogWriter {
   protected override serialize(entry: LogEntry): string {
     const log = this.transform(entry);
     // Enables error reporting in Google Cloud Logging.
-    // highlight-next-line
+    // @code/highlight
     log.stack_trace = entry.payload?.error instanceof Error ? entry.payload.error.stack : undefined;
     return JSON.stringify(log);
   }
 }
 
 // Sets logging writer to the custom one.
-// highlight-next-line
+// @code/highlight
 Logger.writer = new GoogleCloudLogWriter();
 
 const logger = new Logger();

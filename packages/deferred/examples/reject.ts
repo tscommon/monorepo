@@ -6,7 +6,7 @@ async function main(): Promise<void> {
     deferred.reject(new Error('Oops!'));
     console.log(deferred.state === DeferredState.Rejected); // true
   });
-  // expect-error-next-line
+  // @code/error
   await deferred; // Error: Oops!
 }
 

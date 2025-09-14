@@ -1,7 +1,7 @@
 import { DeferFunction } from '../src';
 
 // It is important to use the `using` keyword here.
-// highlight-next-line
+// @code/highlight
 using defer = new DeferFunction();
 
 console.log('start');

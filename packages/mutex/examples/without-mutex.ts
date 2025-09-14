@@ -10,7 +10,7 @@ async function increment(check: number): Promise<void> {
    * This means that the counter is not protected from concurrent access.
    * This can lead to an assertion error.
    */
-  // expect-error-next-line
+  // @code/error
   assert(counter === check);
   counter++;
 }
