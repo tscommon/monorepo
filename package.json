@@ -23,7 +23,7 @@
     "prettier": "3.6.2",
     "ts-node": "10.9.2",
     "tsd": "0.33.0",
-    "typedoc": "0.28.12",
+    "typedoc": "0.28.13",
     "typescript": "5.9.2",
     "typescript-eslint": "8.43.0",
     "vitest": "3.2.4"
