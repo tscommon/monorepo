@@ -2,12 +2,10 @@
   "name": "@tscommon/logger",
   "version": "0.0.2",
   "license": "MIT",
+  "type": "module",
   "author": "7078731+igrek8@users.noreply.github.com",
   "description": "A logger for TypeScript projects",
-  "keywords": [
-    "logger",
-    "logging"
-  ],
+  "keywords": [],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -23,13 +21,10 @@
   "bugs": {
     "url": "https://github.com/tscommon/monorepo/issues"
   },
-  "homepage": "https://tscommon.github.io/monorepo/packages/logger",
+  "homepage": "https://tscommon.github.io/monorepo/modules/_tscommon_logger.html",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "rollup -c ../../rollup.config.js",
     "test": "vitest --run",
     "test:coverage": "vitest --run --coverage"
-  },
-  "devDependencies": {
-    "@types/node": "24.3.3"
   }
 }

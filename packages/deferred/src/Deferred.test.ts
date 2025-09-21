@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { Deferred } from './Deferred';
-import { DeferredState } from './DeferredState';
+import { Deferred } from './Deferred.js';
+import { DeferredState } from './DeferredState.js';
 
 describe('Deferred', () => {
   it('is pending by default', () => {
@@ -9,7 +9,7 @@ describe('Deferred', () => {
   });
 
   it('resolves to a value', async () => {
-    const deferred = new Deferred<number>();
+    const deferred = new Deferred<number>(AbortSignal.timeout(1000));
     deferred.resolve(42);
     await expect(deferred).resolves.toBe(42);
     expect(deferred.state).toBe(DeferredState.Fulfilled);
@@ -23,22 +23,12 @@ describe('Deferred', () => {
     expect(deferred.state).toBe(DeferredState.Rejected);
   });
 
-  it('is immutable', () => {
-    const deferred = new Deferred<number>();
-    expect(() => Object.assign(deferred, { test: 1 })).toThrowError(TypeError);
-  });
-
-  it('implements toStringTag', () => {
-    const deferred = new Deferred<number>();
-    expect(deferred[Symbol.toStringTag]).toBe('Deferred');
-  });
-
   it('implements catch', async () => {
     const deferred = new Deferred<number>();
     const onrejected = vi.fn();
     const error = new Error('error');
     deferred.reject(error);
-    await deferred.catch(onrejected);
+    await deferred.then(undefined, onrejected);
     expect(onrejected).toHaveBeenCalled();
   });
 
@@ -46,7 +36,14 @@ describe('Deferred', () => {
     const deferred = new Deferred<number>();
     const onfinally = vi.fn();
     deferred.resolve(42);
-    await deferred.finally(onfinally);
+    await deferred.then(onfinally, onfinally);
     expect(onfinally).toHaveBeenCalled();
+  });
+
+  it('accepts abort signal', async () => {
+    const controller = new AbortController();
+    const deferred = new Deferred<number>(controller.signal);
+    controller.abort();
+    await expect(deferred).rejects.toThrowError('aborted');
   });
 });

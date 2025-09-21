@@ -2,12 +2,10 @@
   "name": "@tscommon/batch-resolver",
   "version": "0.0.2",
   "license": "MIT",
+  "type": "module",
   "author": "7078731+igrek8@users.noreply.github.com",
   "description": "Schedules and executes batched asynchronous calls",
-  "keywords": [
-    "batch",
-    "async"
-  ],
+  "keywords": [],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -23,16 +21,16 @@
   "bugs": {
     "url": "https://github.com/tscommon/monorepo/issues"
   },
-  "homepage": "https://tscommon.github.io/monorepo/packages/batch-resolver",
+  "homepage": "https://tscommon.github.io/monorepo/modules/_tscommon_batch-resolver.html",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json --outDir dist",
+    "build": "rollup -c ../../rollup.config.js",
     "test": "vitest --run",
     "test:coverage": "vitest --run --coverage"
   },
   "peerDependencies": {
-    "@tscommon/task": "workspace:*"
+    "@tscommon/deferred": "*"
   },
   "devDependencies": {
-    "@types/node": "*"
+    "@tscommon/deferred": "workspace:*"
   }
 }

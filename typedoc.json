@@ -1,0 +1,14 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "out": "_site",
+  "name": "TypeScript Common",
+  "entryPointStrategy": "packages",
+  "entryPoints": ["packages/*"],
+  "packageOptions": { "entryPoints": ["src/index.ts"] },
+  "exclude": ["packages/docs"],
+  "hideGenerator": true,
+  "plugin": ["typedoc-theme-oxide"],
+  "theme": "oxide",
+  "typePrintWidth": 100,
+  "useFirstParagraphOfCommentAsSummary": true
+}

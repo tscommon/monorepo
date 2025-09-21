@@ -1,23 +1,27 @@
-import type { ILogWriter } from './ILogWriter';
-import type { LogEntry } from './LogEntry';
-import { LogLevel } from './LogLevel';
+import type { ILogWriter } from './ILogWriter.js';
+import type { LogEntry } from './LogEntry.js';
+import { LogLevel } from './LogLevel.js';
 
+/**
+ * A log writer that writes log entries to the console.
+ * You can extend this class to implement custom log writers that write to files,
+ * databases, or other destinations.
+ *
+ * ### Logger for Development
+ * {@includeCode ../examples/dev.ts}
+ *
+ * ### Google Cloud Logger
+ * {@includeCode ../examples/gcp.ts}
+ */
 export class LogWriter implements ILogWriter {
+  private readonly _maxDepth: number;
+
   /**
    * Initializes a new instance.
    * @param maxDepth The maximum depth of the data to collect. Default is `3`.
    */
-  public constructor(protected readonly maxDepth = 3) {
-    if (new.target === LogWriter) {
-      Object.freeze(this);
-    }
-  }
-
-  /**
-   * A string tag that identifies this object as a log writer.
-   */
-  public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+  public constructor(maxDepth = 3) {
+    this._maxDepth = maxDepth;
   }
 
   /**
@@ -97,7 +101,7 @@ export class LogWriter implements ILogWriter {
         if (data === null) {
           return null;
         }
-        if (depth >= this.maxDepth) {
+        if (depth >= this._maxDepth) {
           return '[[Truncated]]';
         }
         switch (data.constructor) {

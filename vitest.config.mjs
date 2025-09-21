@@ -1,4 +1,5 @@
-import { defineConfig, defaultExclude } from 'vitest/config';
+import codspeedPlugin from '@codspeed/vitest-plugin';
+import { defaultExclude, defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
@@ -7,11 +8,12 @@ export default defineConfig({
       exclude: [
         ...defaultExclude,
         '**/bin/**',
-        '**/docs/**',
+        '**/_site/**',
         '**/coverage/**',
         '**/build/**',
         '**/examples/**',
         '**/index.ts',
+        '**/*.bench.ts',
       ],
       reporter: ['lcov', 'html'],
       reportOnFailure: true,
@@ -23,4 +25,5 @@ export default defineConfig({
       },
     },
   },
+  plugins: [codspeedPlugin()],
 });

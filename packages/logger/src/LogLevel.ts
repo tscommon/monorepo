@@ -1,3 +1,6 @@
+/**
+ * Defines the severity levels for log entries.
+ */
 export enum LogLevel {
   /**
    * The log entry has no assigned severity level.

@@ -2,6 +2,7 @@
   "name": "@tscommon/box",
   "version": "0.0.4",
   "license": "MIT",
+  "type": "module",
   "author": "7078731+igrek8@users.noreply.github.com",
   "description": "Wraps a value into a box to pass it by reference",
   "keywords": [
@@ -23,9 +24,9 @@
   "bugs": {
     "url": "https://github.com/tscommon/monorepo/issues"
   },
-  "homepage": "https://tscommon.github.io/monorepo/packages/box",
+  "homepage": "https://tscommon.github.io/monorepo/modules/_tscommon_box.html",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json --outDir dist",
+    "build": "rollup -c ../../rollup.config.js",
     "test": "vitest --run",
     "test:coverage": "vitest --run --coverage"
   }

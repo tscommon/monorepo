@@ -1,35 +1,11 @@
-import { Logger, LogLevel } from '../src';
+import { Logger, LogLevel } from '../src/index.js';
 
-const logger = new Logger();
+const logger = new Logger('MyApp', {
+  version: 'v1.0.0',
+});
 
-// Sets the log level to INFO.
-// @code/highlight
-Logger.logLevel = LogLevel.INFO;
+Logger.logLevel = LogLevel.DEBUG;
 
 logger.info('Hello, world!');
 logger.error('Something went wrong.', { error: new Error('An error occurred.') });
-logger.debug('This message will not be logged.');
-
-// Output:
-// {
-//   "severity": "INFO",
-//   "timestamp": {
-//     "seconds": 1731238664,
-//     "nanos": 513000000
-//   },
-//   "message": "Hello, world!"
-// }
-// {
-//   "severity": "ERROR",
-//   "timestamp": {
-//     "seconds": 1731238664,
-//     "nanos": 513000000
-//   },
-//   "message": "Something went wrong.",
-//   "payload": {
-//     "error": {
-//       "stack": "Error: An error occurred. [[Stack]]",
-//       "message": "An error occurred."
-//     }
-//   }
-// }
+logger.debug('This message will be logged.');

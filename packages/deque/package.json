@@ -1,0 +1,31 @@
+{
+  "name": "@tscommon/deque",
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "author": "7078731+igrek8@users.noreply.github.com",
+  "description": "A double-ended queue implementation in TypeScript.",
+  "keywords": [],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tscommon/monorepo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tscommon/monorepo/issues"
+  },
+  "homepage": "https://tscommon.github.io/monorepo/modules/_tscommon_deque.html",
+  "scripts": {
+    "build": "rollup -c ../../rollup.config.js",
+    "test": "vitest --run",
+    "bench": "vitest bench",
+    "test:coverage": "vitest --run --coverage"
+  }
+}

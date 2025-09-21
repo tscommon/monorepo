@@ -63,10 +63,18 @@ jobs:
       - name: Test with coverage
         run: pnpm test:coverage
 
-      - name: Upload docs
-        uses: actions/upload-pages-artifact@v4
+      - uses: codecov/codecov-action@v5
         with:
-          path: packages/docs/build
+          fail_ci_if_error: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      # - name: Run benchmarks
+      #   uses: CodSpeedHQ/action@v4
+      #   with:
+      #     run: pnpm vitest bench --run
+      #     mode: instrumentation
+      #     token: ${{ secrets.CODSPEED_TOKEN }}
 
       - name: Create Release Pull Request or Publish
         id: changesets
@@ -80,11 +88,11 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - uses: codecov/codecov-action@v5
-        with:
-          fail_ci_if_error: true
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Generate docs
+        run: pnpm typedoc
+
+      - name: Upload docs
+        uses: actions/upload-pages-artifact@v4
 
       - id: docs
         name: Deploy docs

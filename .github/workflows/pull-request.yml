@@ -50,3 +50,13 @@ jobs:
           fail_ci_if_error: true
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Run benchmarks
+        uses: CodSpeedHQ/action@v4
+        with:
+          run: pnpm vitest bench
+          mode: instrumentation
+          token: ${{ secrets.CODSPEED_TOKEN }}
+
+      - name: Generate docs
+        run: pnpm typedoc

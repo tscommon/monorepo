@@ -1,7 +1,7 @@
-import type { LogLabels } from './LogLabels';
-import type { LogLevel } from './LogLevel';
-import type { LogPayload } from './LogPayload';
-import type { LogTimestamp } from './LogTimestamp';
+import type { LogLabels } from './LogLabels.js';
+import type { LogLevel } from './LogLevel.js';
+import type { LogPayload } from './LogPayload.js';
+import type { LogTimestamp } from './LogTimestamp.js';
 
 export interface LogEntry {
   /**

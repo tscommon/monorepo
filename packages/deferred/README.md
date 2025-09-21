@@ -1,4 +1,4 @@
-# [Deferred](https://tscommon.github.io/monorepo/packages/deferred) - [API](https://tscommon.github.io/monorepo/api/deferred)
+# Deferred
 
 [![codecov](https://codecov.io/gh/tscommon/monorepo/graph/badge.svg?token=I222OQNV9L)](https://codecov.io/gh/tscommon/monorepo)
 

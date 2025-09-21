@@ -2,14 +2,14 @@
   "name": "@tscommon/deferred",
   "version": "1.0.1",
   "license": "MIT",
+  "type": "module",
   "author": "7078731+igrek8@users.noreply.github.com",
   "description": "A deferred promise that can be manually resolved or rejected",
   "keywords": [
-    "deferred",
     "promise"
   ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -23,9 +23,9 @@
   "bugs": {
     "url": "https://github.com/tscommon/monorepo/issues"
   },
-  "homepage": "https://tscommon.github.io/monorepo/packages/deferred",
+  "homepage": "https://tscommon.github.io/monorepo/modules/_tscommon_deferred.html",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json --outDir dist",
+    "build": "rollup -c ../../rollup.config.js",
     "test": "vitest --run",
     "test:coverage": "vitest --run --coverage"
   }

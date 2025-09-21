@@ -1,32 +1,37 @@
-import type { MutexState } from './MutexState';
+import type { MutexState } from './MutexState.js';
 
+/**
+ * An acquired lock on a mutex, providing access to the protected data.
+ */
 export class MutexGuard<T> implements PromiseLike<T>, AsyncDisposable {
-  readonly #state: MutexState;
-  readonly #data: T;
-  readonly #promise: Promise<void>;
-  #resolve!: (value: void | PromiseLike<void>) => void;
-
-  protected get isLocked(): boolean {
-    return this.#state.owner !== undefined;
-  }
+  /**
+   * @ignore
+   */
+  protected readonly _state: MutexState;
+  private readonly _data: T;
+  private readonly _promise: Promise<void>;
+  private _resolve!: (value: void | PromiseLike<void>) => void;
 
   public constructor(state: MutexState, data: T) {
-    this.#state = state;
-    this.#data = data;
-    this.#promise = new Promise<void>((resolve) => (this.#resolve = resolve));
-    Object.freeze(this);
-  }
-
-  public release(): void {
-    if (this === this.#state.owner) {
-      this.#state.owner = undefined;
-      this.#state.queue = undefined;
-    }
-    this.#resolve();
+    this._state = state;
+    this._data = data;
+    this._promise = new Promise<void>((resolve) => (this._resolve = resolve));
   }
 
   /**
-   * @internal
+   * ### Example
+   * @includeCode ../examples/manual.ts
+   */
+  public release(): void {
+    if (this === this._state.owner) {
+      this._state.owner = undefined;
+      this._state.queue = undefined;
+    }
+    this._resolve();
+  }
+
+  /**
+   * @ignore
    */
   // eslint-disable-next-line @typescript-eslint/require-await
   public async [Symbol.asyncDispose](): Promise<void> {
@@ -34,12 +39,12 @@ export class MutexGuard<T> implements PromiseLike<T>, AsyncDisposable {
   }
 
   /**
-   * @internal
+   * @ignore
    */
   public then<R>(cb: (value: T) => PromiseLike<R>): PromiseLike<R> {
-    const lock = Promise.resolve(this.#state.queue).then(() => cb(this.#data));
-    this.#state.owner = this;
-    this.#state.queue = lock.then(() => this.#promise);
+    const lock = Promise.resolve(this._state.queue).then(() => cb(this._data));
+    this._state.owner = this;
+    this._state.queue = lock.then(() => this._promise);
     return lock;
   }
 }

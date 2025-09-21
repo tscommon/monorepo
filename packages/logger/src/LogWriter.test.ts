@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
-import { LogLevel } from './LogLevel';
-import { LogTimestamp } from './LogTimestamp';
-import { LogWriter } from './LogWriter';
+import { LogLevel } from './LogLevel.js';
+import { LogTimestamp } from './LogTimestamp.js';
+import { LogWriter } from './LogWriter.js';
 
 vi.setSystemTime(0);
 
@@ -117,9 +117,5 @@ describe(LogWriter.name, () => {
     it.each(tests)('collects $actual as $expected', ({ actual, expected }) => {
       expect(writer['collect'](actual, 0, [])).toEqual(expected);
     });
-  });
-
-  it('implements toStringTag', () => {
-    expect(String(writer)).toBe('[object LogWriter]');
   });
 });

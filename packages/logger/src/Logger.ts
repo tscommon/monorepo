@@ -1,11 +1,16 @@
-import type { ILogger } from './ILogger';
-import type { ILogWriter } from './ILogWriter';
-import type { LogLabels } from './LogLabels';
-import { LogLevel } from './LogLevel';
-import type { LogPayload } from './LogPayload';
-import { LogTimestamp } from './LogTimestamp';
-import { LogWriter } from './LogWriter';
+import type { ILogger } from './ILogger.js';
+import type { ILogWriter } from './ILogWriter.js';
+import type { LogLabels } from './LogLabels.js';
+import { LogLevel } from './LogLevel.js';
+import type { LogPayload } from './LogPayload.js';
+import { LogTimestamp } from './LogTimestamp.js';
+import { LogWriter } from './LogWriter.js';
 
+/**
+ * A logger for writing log entries with various severity levels.
+ *
+ * {@includeCode ../examples/index.ts}
+ */
 export class Logger implements ILogger {
   /**
    * The default context for loggers.
@@ -195,25 +200,15 @@ export class Logger implements ILogger {
    */
   public logLevel?: LogLevel;
 
-  /**
-   * A string tag that identifies this object as a logger.
-   */
-  public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
-  }
-
   public constructor(context?: string, labels?: LogLabels) {
     this.context = context;
     this.labels = labels;
-    if (new.target === Logger) {
-      Object.freeze(this);
-    }
   }
 
   /**
    * Writes a log entry.
    */
-  protected write(severity: LogLevel, message: string, payload?: LogPayload): void {
+  private write(severity: LogLevel, message: string, payload?: LogPayload): void {
     if (severity >= (this.logLevel ?? Logger.logLevel)) {
       Logger.writer.write({
         timestamp: new LogTimestamp(),

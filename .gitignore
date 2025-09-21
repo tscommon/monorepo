@@ -131,6 +131,7 @@ dist
 
 # vitest
 coverage/
+bench/
 
 # docusaurus
 build/
@@ -140,3 +141,6 @@ build/
 
 # IDE
 .vscode/
+
+# typedoc
+_site

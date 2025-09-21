@@ -2,13 +2,10 @@
   "name": "@tscommon/mutex",
   "version": "0.0.3",
   "license": "MIT",
+  "type": "module",
   "author": "7078731+igrek8@users.noreply.github.com",
-  "description": "A mutual exclusion primitive useful for protecting shared data",
-  "keywords": [
-    "mutex",
-    "race condition",
-    "concurrency"
-  ],
+  "description": "A mutex implementation in TypeScript.",
+  "keywords": [],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -24,9 +21,9 @@
   "bugs": {
     "url": "https://github.com/tscommon/monorepo/issues"
   },
-  "homepage": "https://tscommon.github.io/monorepo/packages/mutex",
+  "homepage": "https://tscommon.github.io/monorepo/modules/_tscommon_mutex.html",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json --outDir dist",
+    "build": "rollup -c ../../rollup.config.js",
     "test": "vitest --run",
     "test:coverage": "vitest --run --coverage"
   }

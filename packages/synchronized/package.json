@@ -2,14 +2,10 @@
   "name": "@tscommon/synchronized",
   "version": "0.0.4",
   "license": "MIT",
+  "type": "module",
   "author": "7078731+igrek8@users.noreply.github.com",
-  "description": "In an async environment, a race condition occurs when two or more async operations attempt to update mutable shared data at the same time. @synchronized decorator offers a mechanism to avoid race conditions by synchronizing async operations access to shared data",
-  "keywords": [
-    "synchronization",
-    "execution-control",
-    "execution-order",
-    "race-condition"
-  ],
+  "description": "A synchronization utility to control execution order of async functions",
+  "keywords": [],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -25,9 +21,9 @@
   "bugs": {
     "url": "https://github.com/tscommon/monorepo/issues"
   },
-  "homepage": "https://tscommon.github.io/monorepo/packages/synchronized",
+  "homepage": "https://tscommon.github.io/monorepo/modules/_tscommon_synchronized.html",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json --outDir dist",
+    "build": "rollup -c ../../rollup.config.js",
     "test": "vitest --run",
     "test:coverage": "vitest --run --coverage"
   }

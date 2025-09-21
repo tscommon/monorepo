@@ -2,12 +2,10 @@
   "name": "@tscommon/batch",
   "version": "0.0.3",
   "license": "MIT",
+  "type": "module",
   "author": "7078731+igrek8@users.noreply.github.com",
   "description": "A primitive to represent a batch of items",
-  "keywords": [
-    "batch",
-    "batching"
-  ],
+  "keywords": [],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -23,9 +21,9 @@
   "bugs": {
     "url": "https://github.com/tscommon/monorepo/issues"
   },
-  "homepage": "https://tscommon.github.io/monorepo/packages/batch",
+  "homepage": "https://tscommon.github.io/monorepo/modules/_tscommon_batch.html",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json --outDir dist",
+    "build": "rollup -c ../../rollup.config.js",
     "test": "vitest --run",
     "test:coverage": "vitest --run --coverage"
   }
