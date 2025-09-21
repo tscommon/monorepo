@@ -16,6 +16,8 @@ export default defineConfig([
       '**/coverage/',
       '**/examples/',
       '**/*.test.ts',
+      'rollup.config.js',
+      '_site',
     ],
   },
   js.configs.recommended,

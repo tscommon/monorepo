@@ -1,4 +1,4 @@
-# [Mutex](https://tscommon.github.io/monorepo/packages/mutex) - [API](https://tscommon.github.io/monorepo/api/mutex)
+# Mutex
 
 [![codecov](https://codecov.io/gh/tscommon/monorepo/graph/badge.svg?token=I222OQNV9L)](https://codecov.io/gh/tscommon/monorepo)
 

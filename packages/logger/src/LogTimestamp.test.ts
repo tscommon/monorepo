@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { LogTimestamp } from './LogTimestamp';
+import { LogTimestamp } from './LogTimestamp.js';
 
 describe(LogTimestamp.name, () => {
   it('returns current timestamp with insert id', () => {

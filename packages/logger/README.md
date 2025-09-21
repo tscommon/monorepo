@@ -1,4 +1,4 @@
-# [Logger](https://tscommon.github.io/monorepo/packages/logger) - [API](https://tscommon.github.io/monorepo/api/logger)
+# Logger
 
 [![codecov](https://codecov.io/gh/tscommon/monorepo/graph/badge.svg?token=I222OQNV9L)](https://codecov.io/gh/tscommon/monorepo)
 

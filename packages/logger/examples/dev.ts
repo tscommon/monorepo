@@ -1,34 +1,48 @@
-import { inspect } from 'util';
-import { Logger, LogLevel, LogWriter, type LogEntry, type LogLabels, type LogPayload, type LogTimestamp } from '../src';
+import {
+  Logger,
+  LogLevel,
+  LogWriter,
+  type LogEntry,
+  type LogLabels,
+  type LogPayload,
+  type LogTimestamp,
+} from '../src/index.js';
 
-class DevLogWriter extends LogWriter {
-  protected override serialize(entry: LogEntry): string {
-    let str = '';
-    str += this.printTimestamp(entry.timestamp);
-    str += ` [${this.printSeverity(entry.severity)}]`;
-    if (entry.context) str += ` (${entry.context})`;
-    if (entry.labels) str += ` ${this.printLabels(entry.labels)}`;
-    str += ` ${entry.message}`;
-    if (entry.payload) str += ` ${this.printPayload(entry.payload)}`;
-    return str;
+import { inspect } from 'node:util';
+
+export class DevLogWriter extends LogWriter {
+  static {
+    // Set your formatter globally
+    Logger.writer = new DevLogWriter();
   }
 
-  private printTimestamp(timestamp: LogTimestamp): string {
+  protected override serialize(entry: LogEntry): string {
+    let parts: string[] = [];
+    parts.push(this._printTimestamp(entry.timestamp));
+    parts.push(`[${this._printSeverity(entry.severity)}]`);
+    if (entry.context) parts.push(`(${entry.context})`);
+    if (entry.labels) parts.push(this._printLabels(entry.labels));
+    parts.push(entry.message);
+    if (entry.payload) parts.push(this._printPayload(entry.payload));
+    return parts.join(' ');
+  }
+
+  protected _printTimestamp(timestamp: LogTimestamp): string {
     return new Date(timestamp.seconds * 1000 + timestamp.nanos / 1_000_000).toLocaleString();
   }
 
-  private printLabels(labels: LogLabels): string {
+  protected _printLabels(labels: LogLabels): string {
     return Object.entries(labels)
       .map(([key, value]) => (value ? `${key}: ${value}` : undefined))
       .filter(Boolean)
       .join(', ');
   }
 
-  private printSeverity(severity: LogLevel): string {
+  protected _printSeverity(severity: LogLevel): string {
     return LogLevel[severity].toUpperCase();
   }
 
-  private printPayload(payload: LogPayload): string {
+  private _printPayload(payload: LogPayload): string {
     return inspect(payload, {
       depth: 5,
       colors: true,
@@ -37,17 +51,3 @@ class DevLogWriter extends LogWriter {
     });
   }
 }
-
-Logger.writer = new DevLogWriter();
-
-const logger = new Logger('app');
-
-logger.info('Server started.', { port: 3000 });
-logger.error('Something went wrong.', { error: new Error('An error occurred.') });
-
-// Output
-// 01/01/2024, 09:00:00 [INFO] (app) Server started. { port: 3000 }
-// 01/01/2024, 09:00:00 [ERROR] (app) Something went wrong. {
-//   error: Error: An error occurred.
-//       ...
-// }

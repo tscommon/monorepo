@@ -1,5 +1,5 @@
 import { describe, expect, test, vi } from 'vitest';
-import { Mutex } from './Mutex';
+import { Mutex } from './Mutex.js';
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));

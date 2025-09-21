@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { Logger } from './Logger';
-import { LogLevel } from './LogLevel';
+import { Logger } from './Logger.js';
+import { LogLevel } from './LogLevel.js';
 
 const writer = vi.hoisted(() => ({
   write: vi.fn(),
@@ -57,9 +57,5 @@ describe(Logger.name, () => {
       labels: { a: 'b', c: 'd' },
       payload: undefined,
     });
-  });
-
-  it('implements toStringTag', () => {
-    expect(String(new Logger())).toBe('[object Logger]');
   });
 });

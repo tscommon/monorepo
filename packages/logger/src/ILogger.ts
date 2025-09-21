@@ -1,4 +1,4 @@
-import type { LogPayload } from './LogPayload';
+import type { LogPayload } from './LogPayload.js';
 
 export interface ILogger {
   /**

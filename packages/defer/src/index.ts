@@ -1,1 +1,0 @@
-export { DeferFunction } from './DeferFunction';

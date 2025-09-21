@@ -1,21 +1,20 @@
-import { setTimeout } from 'timers/promises';
-import { synchronized } from '../src';
+import { synchronized } from '../src/index.js';
 
-class SynchronizedObject {
-  // @code/highlight
-  @synchronized // Executes the method serially
-  public async execute(value: number): Promise<void> {
-    await setTimeout(Math.random() * 1000);
-    console.log(value);
+class MyObject {
+  @synchronized // Decorator to synchronize method calls
+  public async process(id: string): Promise<void> {
+    console.log(id, 'Started');
+    return new Promise((resolve) => {
+      queueMicrotask(() => {
+        console.log(id, 'Ended');
+        resolve();
+      });
+    });
   }
 }
 
-const obj = new SynchronizedObject();
+const o = new MyObject();
 
-obj.execute(1);
-obj.execute(2);
-obj.execute(3);
-
-// 1
-// 2
-// 3
+o.process('A');
+o.process('B');
+o.process('C');

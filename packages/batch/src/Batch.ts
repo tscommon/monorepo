@@ -1,11 +1,28 @@
-import { BatchItem } from './BatchItem';
+import { BatchItem } from './BatchItem.js';
 
+/**
+ * Represents a batch of items.
+ *
+ * `for of`
+ * {@includeCode ../examples/01_for-of.ts}
+ *
+ *
+ * `for await of`
+ * {@includeCode ../examples/02_for-await-of.ts}
+ *
+ *
+ * Predicate:
+ * {@includeCode ../examples/03_predicate.ts}
+ *
+ * Chaining:
+ * {@includeCode ../examples/04_chaining.ts}
+ */
 export class Batch<T> implements Iterable<BatchItem<T>> {
   public static *from<T>(
     iterable: Iterable<T>,
     size: number,
     predicate?: (value: T, index: number) => boolean,
-  ): IteratorObject<Batch<T>, undefined> {
+  ): Generator<Batch<T>, undefined> {
     if (size < 1) {
       throw new RangeError('The size must be greater than or equal to 1.');
     }
@@ -20,12 +37,12 @@ export class Batch<T> implements Iterable<BatchItem<T>> {
         items.push(item);
       }
       if (items.length === size) {
-        yield new Batch(index++, items);
+        yield new Batch(items, index++);
         items = [];
       }
     }
     if (items.length > 0) {
-      yield new Batch(index++, items);
+      yield new Batch(items, index++);
     }
   }
 
@@ -33,7 +50,7 @@ export class Batch<T> implements Iterable<BatchItem<T>> {
     iterable: Iterable<T> | AsyncIterable<T>,
     size: number,
     predicate?: (value: T, index: number) => boolean,
-  ): AsyncIteratorObject<Batch<T>, undefined> {
+  ): AsyncGenerator<Batch<T>, undefined> {
     if (size < 1) {
       throw new RangeError('The size must be greater than or equal to 1.');
     }
@@ -48,12 +65,12 @@ export class Batch<T> implements Iterable<BatchItem<T>> {
         items.push(item);
       }
       if (items.length === size) {
-        yield new Batch(index++, items);
+        yield new Batch(items, index++);
         items = [];
       }
     }
     if (items.length > 0) {
-      yield new Batch(index++, items);
+      yield new Batch(items, index++);
     }
   }
 
@@ -62,14 +79,12 @@ export class Batch<T> implements Iterable<BatchItem<T>> {
   }
 
   public constructor(
-    public readonly index: number,
     public readonly items: readonly T[],
-  ) {
-    Object.freeze(this);
-  }
+    public readonly index: number | undefined,
+  ) {}
 
   /**
-   * @internal
+   * @private
    */
   public *[Symbol.iterator](): Iterator<BatchItem<T>> {
     for (let index = 0; index < this.items.length; ++index) {

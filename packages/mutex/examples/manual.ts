@@ -1,27 +1,18 @@
-import assert from 'assert/strict';
-import { setTimeout } from 'timers/promises';
-import { Mutex } from '../src';
+import { Mutex } from '../src/index.js';
 
-const mutex = new Mutex(0);
+const mutex = new Mutex(void 0);
 
-async function increment(check: number): Promise<void> {
+async function process(name: string): Promise<void> {
   const lock = mutex.lock();
   try {
-    const counter = await lock;
-    await setTimeout(Math.random() * 1000);
-    assert(counter.value === check);
-    counter.value++;
+    console.log(name, 'Acquiring lock...');
+    await lock;
+    console.log(name, 'Acquired lock');
   } finally {
-    // It is important to release the lock in a `finally` block.
-    // @code/highlight
-    lock.release();
+    lock.release(); // You must release the lock
+    console.log(name, 'Releasing lock...');
   }
 }
 
-async function main(): Promise<void> {
-  increment(0);
-  increment(1);
-  increment(2);
-}
-
-main();
+process('A');
+process('B');

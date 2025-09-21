@@ -9,12 +9,12 @@ export class LogTimestamp {
   /**
    * A unique identifier for the log entry within the same millisecond.
    */
-  private static insertId = 0;
+  private static _insertId = 0;
 
   /**
    * The timestamp of the last log entry.
    */
-  private static lastTimestamp = 0;
+  private static _lastTimestamp = 0;
 
   /**
    * The number of seconds since the Unix epoch.
@@ -31,15 +31,14 @@ export class LogTimestamp {
    */
   public constructor() {
     const now = Date.now();
-    if (now === LogTimestamp.lastTimestamp) {
-      LogTimestamp.insertId = ++LogTimestamp.insertId % 1_000_000;
+    if (now === LogTimestamp._lastTimestamp) {
+      LogTimestamp._insertId = ++LogTimestamp._insertId % 1_000_000;
     } else {
-      LogTimestamp.lastTimestamp = now;
-      LogTimestamp.insertId = 0;
+      LogTimestamp._lastTimestamp = now;
+      LogTimestamp._insertId = 0;
     }
     this.seconds = Math.trunc(now / 1000);
-    this.nanos = (now % 1000) * 1_000_000 + LogTimestamp.insertId;
-    Object.freeze(this);
+    this.nanos = (now % 1000) * 1_000_000 + LogTimestamp._insertId;
   }
 
   /**

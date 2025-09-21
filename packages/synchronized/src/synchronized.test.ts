@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { synchronized } from './synchronized';
+import { describe, expect, test, vi } from 'vitest';
+import { synchronized } from './synchronized.js';
 
 const fn = vi.fn();
 
@@ -13,7 +13,7 @@ class SynchronizedObject {
     return this.impl(ms);
   }
 
-  protected impl(ms: number): Promise<unknown> {
+  private impl(ms: number): Promise<unknown> {
     return new Promise((resolve, reject) => {
       setTimeout(async () => {
         try {
@@ -26,11 +26,9 @@ class SynchronizedObject {
   }
 }
 
-describe('synchronized', () => {
-  beforeEach(() => {
-    vi.useFakeTimers();
-  });
+vi.useFakeTimers();
 
+describe('synchronized', () => {
   test('runs serially with @synchronized', async () => {
     const a = new SynchronizedObject();
     fn.mockResolvedValueOnce('a');
