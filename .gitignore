@@ -144,3 +144,8 @@ build/
 
 # typedoc
 _site
+
+# codecov
+codecov
+codecov.SHA256SUM
+codecov.SHA256SUM.sig
