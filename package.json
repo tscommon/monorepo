@@ -19,7 +19,7 @@
   "devDependencies": {
     "@changesets/cli": "2.29.7",
     "@codspeed/vitest-plugin": "^4.0.1",
-    "@eslint/js": "9.35.0",
+    "@eslint/js": "9.36.0",
     "@rollup/plugin-terser": "0.4.4",
     "@rollup/plugin-typescript": "12.1.4",
     "@types/node": "^24.5.2",
