@@ -9,6 +9,7 @@ import { LogWriter } from './LogWriter.js';
 /**
  * A logger for writing log entries with various severity levels.
  *
+ * **Example:**
  * {@includeCode ../examples/index.ts}
  */
 export class Logger implements ILogger {
@@ -43,8 +44,8 @@ export class Logger implements ILogger {
    * **Example:**
    *
    * ```typescript
-   * Logger.default('The server is running.');
-   * Logger.default('The server is running.', { port: 3000 });
+   * Logger.default('The server is running');
+   * Logger.default('The server is running', { port: 3000 });
    * ```
    *
    * @param message The log message.
@@ -60,8 +61,8 @@ export class Logger implements ILogger {
    * **Example:**
    *
    * ```typescript
-   * Logger.debug('The server is running.');
-   * Logger.debug('The server is running.', { port: 3000 });
+   * Logger.debug('The server is running');
+   * Logger.debug('The server is running', { port: 3000 });
    * ```
    *
    * @param message The log message.
@@ -77,8 +78,8 @@ export class Logger implements ILogger {
    * **Example:**
    *
    * ```typescript
-   * Logger.info('The server is running.');
-   * Logger.info('The server is running.', { port: 3000 });
+   * Logger.info('The server is running');
+   * Logger.info('The server is running', { port: 3000 });
    * ```
    *
    * @param message The log message.
@@ -94,8 +95,8 @@ export class Logger implements ILogger {
    * **Example:**
    *
    * ```typescript
-   * Logger.notice('The server is running.');
-   * Logger.notice('The server is running.', { port: 3000 });
+   * Logger.notice('The server is running');
+   * Logger.notice('The server is running', { port: 3000 });
    * ```
    *
    * @param message The log message.
@@ -111,7 +112,7 @@ export class Logger implements ILogger {
    * **Example:**
    *
    * ```typescript
-   * Logger.warning('Unauthorized access.', { status: 401 });
+   * Logger.warning('Unauthorized access', { status: 401 });
    * ```
    *
    * @param message The log message.
@@ -127,7 +128,7 @@ export class Logger implements ILogger {
    * **Example:**
    *
    * ```typescript
-   * Logger.error('An error occurred.', { status: 500, error: new Error('Something went wrong.') });
+   * Logger.error('An error occurred', { status: 500, error: new Error('Something went wrong') });
    * ```
    *
    * @param message The log message.
@@ -143,7 +144,7 @@ export class Logger implements ILogger {
    * **Example:**
    *
    * ```typescript
-   * Logger.critical('An error occurred.', { status: 500, error: new Error('Something went wrong.') });
+   * Logger.critical('An error occurred', { status: 500, error: new Error('Something went wrong') });
    * ```
    *
    * @param message The log message.
@@ -159,7 +160,7 @@ export class Logger implements ILogger {
    * **Example:**
    *
    * ```typescript
-   * Logger.alert('An error occurred.', { status: 500, error: new Error('Something went wrong.') });
+   * Logger.alert('An error occurred', { status: 500, error: new Error('Something went wrong') });
    * ```
    *
    * @param message The log message.
@@ -175,7 +176,7 @@ export class Logger implements ILogger {
    * **Example:**
    *
    * ```typescript
-   * Logger.emergency('An error occurred.', { status: 500, error: new Error('Something went wrong.') });
+   * Logger.emergency('An error occurred', { status: 500, error: new Error('Something went wrong') });
    * ```
    *
    * @param message The log message.

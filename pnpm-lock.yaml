@@ -12,7 +12,7 @@ importers:
         specifier: 2.29.7
         version: 2.29.7(@types/node@24.5.2)
       '@codspeed/vitest-plugin':
-        specifier: ^4.0.1
+        specifier: 4.0.1
         version: 4.0.1(vite@7.1.7(@types/node@24.5.2)(jiti@2.5.1)(terser@5.44.0)(yaml@2.8.1))(vitest@3.2.4(@types/node@24.5.2)(jiti@2.5.1)(terser@5.44.0)(yaml@2.8.1))
       '@eslint/js':
         specifier: 9.35.0
@@ -24,7 +24,7 @@ importers:
         specifier: 12.1.4
         version: 12.1.4(rollup@4.50.1)(tslib@2.8.1)(typescript@5.9.2)
       '@types/node':
-        specifier: ^24.5.2
+        specifier: 24.5.2
         version: 24.5.2
       '@vitest/coverage-v8':
         specifier: 3.2.4
@@ -36,7 +36,7 @@ importers:
         specifier: 16.4.0
         version: 16.4.0
       jiti:
-        specifier: ^2.5.1
+        specifier: 2.5.1
         version: 2.5.1
       prettier:
         specifier: 3.6.2

@@ -15,7 +15,7 @@ const scopes = new WeakMap<object, WeakMap<Function, Promise<unknown>>>();
  *   }
  * }
  * ```
- *
+ * **Example:**
  * {@includeCode ../examples/index.ts}
  */
 export function synchronized<T extends (...args: any) => Promise<any>>(

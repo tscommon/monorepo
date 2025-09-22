@@ -69,14 +69,14 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-      # - name: Run benchmarks
-      #   uses: CodSpeedHQ/action@v4
-      #   with:
-      #     run: pnpm vitest bench --run
-      #     mode: instrumentation
-      #     token: ${{ secrets.CODSPEED_TOKEN }}
+      - name: Run benchmarks
+        uses: CodSpeedHQ/action@v4
+        with:
+          run: pnpm bench
+          mode: instrumentation
+          token: ${{ secrets.CODSPEED_TOKEN }}
 
-      - name: Create Release Pull Request or Publish
+      - name: Release
         id: changesets
         uses: changesets/action@v1
         with:

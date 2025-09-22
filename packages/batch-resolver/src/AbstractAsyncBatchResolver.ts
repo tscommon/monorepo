@@ -11,6 +11,7 @@ function hasFlag(value: number, flag: number): boolean {
 /**
  * Batches multiple asynchronous calls within a single operation, caching results.
  *
+ * **Example:**
  * {@includeCode ../examples/index.ts}
  *
  * @template Input The type of the individual item to be resolved.
@@ -53,7 +54,7 @@ export abstract class AbstractAsyncBatchResolver<Input, Result, Key = Input> {
    * @param signal An optional AbortSignal to cancel the request.
    * @returns A promise-like task that resolves with the result.
    */
-  public get(input: Input, deduplication = this._deduplication, signal?: AbortSignal): PromiseLike<Result> {
+  public resolve(input: Input, deduplication = this._deduplication, signal?: AbortSignal): PromiseLike<Result> {
     const key = this.getKey(input);
     const existingTask = this._tasks.get(key);
 

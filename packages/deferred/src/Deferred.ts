@@ -6,6 +6,7 @@ import { DeferredState } from './DeferredState.js';
 /**
  * Represents a deferred promise.
  *
+ * **Example:**
  * {@includeCode ../examples/index.ts}
  */
 export class Deferred<T> implements PromiseLike<T> {

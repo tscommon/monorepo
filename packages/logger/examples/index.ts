@@ -7,5 +7,5 @@ const logger = new Logger('MyApp', {
 Logger.logLevel = LogLevel.DEBUG;
 
 logger.info('Hello, world!');
-logger.error('Something went wrong.', { error: new Error('An error occurred.') });
-logger.debug('This message will be logged.');
+logger.error('Something went wrong', { error: new Error('An error occurred') });
+logger.debug('This message will be logged');

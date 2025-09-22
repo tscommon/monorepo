@@ -35,8 +35,8 @@ describe('AbstractAsyncBatchResolver', () => {
 
   describe('Core Batching and Resolution', () => {
     it('should batch multiple calls within the same event loop tick into a single onResolve call', async () => {
-      const promise1 = resolver.get('task1');
-      const promise2 = resolver.get('task2');
+      const promise1 = resolver.resolve('task1');
+      const promise2 = resolver.resolve('task2');
 
       // onResolve should not have been called yet
       expect(resolver.onResolve).not.toHaveBeenCalled();
@@ -61,14 +61,14 @@ describe('AbstractAsyncBatchResolver', () => {
     });
 
     it('should cache resolved tasks and not call onResolve again for the same key', async () => {
-      const promise1 = resolver.get('task1');
+      const promise1 = resolver.resolve('task1');
       await vi.runAllTimersAsync();
       await promise1;
 
       expect(resolver.onResolve).toHaveBeenCalledTimes(1);
 
       // Call get again for the same key
-      const promise2 = resolver.get('task1');
+      const promise2 = resolver.resolve('task1');
 
       // It should resolve immediately with the cached value
       await expect(promise2).resolves.toBe('Resolved: task1');
@@ -81,8 +81,8 @@ describe('AbstractAsyncBatchResolver', () => {
 
   describe('Deduplication Strategies', () => {
     it('[Merge] should return the same promise instance for the same key by default', async () => {
-      const promise1 = resolver.get('task1');
-      const promise2 = resolver.get('task1');
+      const promise1 = resolver.resolve('task1');
+      const promise2 = resolver.resolve('task1');
 
       expect(promise1).toBe(promise2);
 
@@ -97,12 +97,12 @@ describe('AbstractAsyncBatchResolver', () => {
         tasks.forEach((task) => task.reject(new Error('Failed!')));
       });
 
-      const promise1 = resolver.get('task1');
+      const promise1 = resolver.resolve('task1');
       vi.runAllTimers();
       await expect(promise1).rejects.toThrow('Failed!');
 
       // Call get again for the same key
-      const promise2 = resolver.get('task1');
+      const promise2 = resolver.resolve('task1');
       expect(promise1).toBe(promise2);
 
       await expect(promise2).rejects.toThrow('Failed!');
@@ -112,8 +112,8 @@ describe('AbstractAsyncBatchResolver', () => {
     });
 
     it('[Cancel] should reject the original task and create a new one', async () => {
-      const promise1 = resolver.get('task1');
-      const promise2 = resolver.get('task1', DeduplicationStrategy.Cancel);
+      const promise1 = resolver.resolve('task1');
+      const promise2 = resolver.resolve('task1', DeduplicationStrategy.Cancel);
 
       expect(promise1).not.toBe(promise2);
       await expect(promise1).rejects.toThrow(TaskCancelledError);
@@ -131,7 +131,7 @@ describe('AbstractAsyncBatchResolver', () => {
         tasks.forEach((task) => task.reject(new Error('Failed!')));
       });
 
-      const promise1 = resolver.get('task1');
+      const promise1 = resolver.resolve('task1');
       vi.runAllTimers();
       await expect(promise1).rejects.toThrow('Failed!');
 
@@ -140,7 +140,7 @@ describe('AbstractAsyncBatchResolver', () => {
         tasks.forEach((task, key) => task.resolve(`Retry success: ${key}`));
       });
 
-      const promise2 = resolver.get('task1', DeduplicationStrategy.Retry);
+      const promise2 = resolver.resolve('task1', DeduplicationStrategy.Retry);
       expect(promise1).not.toBe(promise2);
 
       await vi.runAllTimersAsync();
@@ -156,8 +156,8 @@ describe('AbstractAsyncBatchResolver', () => {
       const testError = new Error('Global batch failure');
       resolver.onResolve.mockRejectedValue(testError);
 
-      const promise1 = resolver.get('task1');
-      const promise2 = resolver.get('task2');
+      const promise1 = resolver.resolve('task1');
+      const promise2 = resolver.resolve('task2');
 
       vi.runAllTimers();
 
@@ -171,8 +171,8 @@ describe('AbstractAsyncBatchResolver', () => {
         tasks.get('task1')?.resolve('Resolved: task1');
       });
 
-      const promise1 = resolver.get('task1');
-      const promise2 = resolver.get('task2');
+      const promise1 = resolver.resolve('task1');
+      const promise2 = resolver.resolve('task2');
 
       vi.runAllTimers();
 
@@ -183,8 +183,8 @@ describe('AbstractAsyncBatchResolver', () => {
 
   describe('Instance Methods', () => {
     it('clear() should reject all pending tasks and clear the batch', async () => {
-      const promise1 = resolver.get('task1');
-      const promise2 = resolver.get('task2');
+      const promise1 = resolver.resolve('task1');
+      const promise2 = resolver.resolve('task2');
 
       resolver.clear();
 
@@ -197,8 +197,8 @@ describe('AbstractAsyncBatchResolver', () => {
     });
 
     it('delete() should cancel a pending task and remove it from the batch and cache', async () => {
-      const promise1 = resolver.get('task1');
-      const promise2 = resolver.get('task2');
+      const promise1 = resolver.resolve('task1');
+      const promise2 = resolver.resolve('task2');
 
       const wasDeleted = resolver.delete('task1');
       expect(wasDeleted).toBe(true);
@@ -219,7 +219,7 @@ describe('AbstractAsyncBatchResolver', () => {
 
     it('has() should return true for pending or cached tasks, and false otherwise', async () => {
       expect(resolver.has('task1')).toBe(false);
-      resolver.get('task1');
+      resolver.resolve('task1');
       expect(resolver.has('task1')).toBe(true);
 
       await vi.runAllTimersAsync();
@@ -232,9 +232,9 @@ describe('AbstractAsyncBatchResolver', () => {
   describe('Instance properties', () => {
     it('size should return the number of tracked tasks', async () => {
       expect(resolver.size).toBe(0);
-      resolver.get('task1');
+      resolver.resolve('task1');
       expect(resolver.size).toBe(1);
-      resolver.get('task2');
+      resolver.resolve('task2');
       expect(resolver.size).toBe(2);
 
       await vi.runAllTimersAsync();

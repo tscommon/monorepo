@@ -5,11 +5,11 @@ class TokenStore {
   private readonly mutex = new Mutex(void 0);
 
   public async getToken(): Promise<string> {
-    console.log('Requesting token...');
+    console.log('Requesting token');
     await using lock = this.mutex.lock();
     await lock; // Wait for the lock to be acquired
     if (this.token) {
-      console.log('Reusing existing token:', this.token);
+      console.log('Reusing existing token', this.token);
       return this.token;
     }
     const token = await new Promise<string>((resolve) => {

@@ -5,8 +5,8 @@
  *
  * ```typescript
  * { port: 3000 }
- * { error: new Error('Something went wrong.') }
- * { status: 500, error: new Error('Something went wrong.') }
+ * { error: new Error('Something went wrong') }
+ * { status: 500, error: new Error('Something went wrong') }
  * ```
  *
  * **Deeply nested data:**

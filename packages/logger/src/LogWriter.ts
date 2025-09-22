@@ -7,10 +7,10 @@ import { LogLevel } from './LogLevel.js';
  * You can extend this class to implement custom log writers that write to files,
  * databases, or other destinations.
  *
- * ### Logger for Development
+ * **Logger for Development:**
  * {@includeCode ../examples/dev.ts}
  *
- * ### Google Cloud Logger
+ * **Google Cloud Logger:**
  * {@includeCode ../examples/gcp.ts}
  */
 export class LogWriter implements ILogWriter {

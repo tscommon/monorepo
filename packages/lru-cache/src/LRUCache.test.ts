@@ -7,13 +7,12 @@ describe('LRUCache', () => {
   describe('Initialization', () => {
     it('should create a cache with the specified capacity', () => {
       const cacheInstance = new LRUCache<string, number>(10);
-      expect(cacheInstance.capacity).toBe(10);
       expect(cacheInstance.size).toBe(0);
     });
 
     it('should throw an error if capacity is zero or less', () => {
-      expect(() => new LRUCache(0)).toThrow('Capacity must be a positive number.');
-      expect(() => new LRUCache(-5)).toThrow('Capacity must be a positive number.');
+      expect(() => new LRUCache(0)).toThrow('Capacity must be a positive number');
+      expect(() => new LRUCache(-5)).toThrow('Capacity must be a positive number');
     });
   });
 
@@ -22,8 +21,8 @@ describe('LRUCache', () => {
       cache = new LRUCache<string, number>(3);
     });
 
-    it('should put and get a value', () => {
-      cache.put('a', 1);
+    it('should set and get a value', () => {
+      cache.set('a', 1);
       expect(cache.get('a')).toBe(1);
       expect(cache.size).toBe(1);
     });
@@ -33,8 +32,8 @@ describe('LRUCache', () => {
     });
 
     it('should update the value of an existing key', () => {
-      cache.put('a', 1);
-      cache.put('a', 100);
+      cache.set('a', 1);
+      cache.set('a', 100);
       expect(cache.get('a')).toBe(100);
       expect(cache.size).toBe(1);
     });
@@ -46,8 +45,8 @@ describe('LRUCache', () => {
       const key2 = { id: 2 };
       const val2 = { data: 'B' };
 
-      objCache.put(key1, val1);
-      objCache.put(key2, val2);
+      objCache.set(key1, val1);
+      objCache.set(key2, val2);
 
       expect(objCache.get(key1)).toBe(val1);
       expect(objCache.get(key2)).toBe(val2);
@@ -58,16 +57,16 @@ describe('LRUCache', () => {
   describe('LRU Eviction Policy', () => {
     beforeEach(() => {
       cache = new LRUCache<string, number>(3);
-      cache.put('a', 1); // a is LRU
-      cache.put('b', 2); // b is middle
-      cache.put('c', 3); // c is MRU
+      cache.set('a', 1); // a is LRU
+      cache.set('b', 2); // b is middle
+      cache.set('c', 3); // c is MRU
     });
 
     it('should evict the least recently used item when capacity is exceeded', () => {
       expect(cache.size).toBe(3);
 
       // 'a' is the least recently used. Adding 'd' should evict 'a'.
-      cache.put('d', 4);
+      cache.set('d', 4);
 
       expect(cache.size).toBe(3);
       expect(cache.get('a')).toBeUndefined(); // 'a' should be gone
@@ -81,7 +80,7 @@ describe('LRUCache', () => {
       cache.get('a');
 
       // Adding 'd' should now evict 'b'.
-      cache.put('d', 4);
+      cache.set('d', 4);
 
       expect(cache.size).toBe(3);
       expect(cache.get('b')).toBeUndefined(); // 'b' should be evicted
@@ -90,12 +89,12 @@ describe('LRUCache', () => {
       expect(cache.get('d')).toBe(4);
     });
 
-    it('should make an item the most recently used on `put` (update)', () => {
+    it('should make an item the most recently used on `set` (update)', () => {
       // Update 'a', making it the MRU. New order: b (LRU), c, a (MRU).
-      cache.put('a', 100);
+      cache.set('a', 100);
 
       // Adding 'd' should now evict 'b'.
-      cache.put('d', 4);
+      cache.set('d', 4);
 
       expect(cache.size).toBe(3);
       expect(cache.get('b')).toBeUndefined(); // 'b' should be evicted
@@ -106,10 +105,10 @@ describe('LRUCache', () => {
 
     it('should work correctly with a capacity of 1', () => {
       const smallCache = new LRUCache<string, number>(1);
-      smallCache.put('a', 1);
+      smallCache.set('a', 1);
       expect(smallCache.get('a')).toBe(1);
 
-      smallCache.put('b', 2); // This should evict 'a'
+      smallCache.set('b', 2); // This should evict 'a'
       expect(smallCache.get('a')).toBeUndefined();
       expect(smallCache.get('b')).toBe(2);
       expect(smallCache.size).toBe(1);
@@ -149,8 +148,8 @@ describe('LRUCache', () => {
       expect(cache.size).toBe(2);
 
       // Now 'b' is the LRU. Adding two more items should evict 'b'.
-      cache.put('d', 4);
-      cache.put('e', 5);
+      cache.set('d', 4);
+      cache.set('e', 5);
 
       expect(cache.size).toBe(3);
       expect(cache.has('b')).toBe(false); // 'b' was correctly evicted
@@ -165,8 +164,8 @@ describe('LRUCache', () => {
       expect(cache.size).toBe(2);
 
       // Now 'b' is the MRU and 'a' is the LRU. Adding two items should evict 'a'.
-      cache.put('d', 4);
-      cache.put('e', 5);
+      cache.set('d', 4);
+      cache.set('e', 5);
 
       expect(cache.size).toBe(3);
       expect(cache.has('a')).toBe(false); // 'a' was correctly evicted
@@ -177,8 +176,8 @@ describe('LRUCache', () => {
   describe('Helper Methods', () => {
     beforeEach(() => {
       cache = new LRUCache<string, number>(2);
-      cache.put('a', 1);
-      cache.put('b', 2);
+      cache.set('a', 1);
+      cache.set('b', 2);
     });
 
     it('`has` should return true for existing keys and false for non-existent ones', () => {
@@ -191,7 +190,7 @@ describe('LRUCache', () => {
       cache.has('a'); // Check for 'a'
 
       // Add 'c', which should evict the LRU item, 'a'
-      cache.put('c', 3);
+      cache.set('c', 3);
 
       expect(cache.has('a')).toBe(false); // 'a' was not promoted and got evicted
       expect(cache.has('b')).toBe(true);

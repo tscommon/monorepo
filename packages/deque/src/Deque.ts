@@ -14,9 +14,14 @@ export class Deque<T> implements Iterable<T> {
   // A minimum capacity below which the deque will not shrink.
   private static readonly _MINIMUM_CAPACITY = 16;
 
+  /**
+   * @param initialCapacity - Initial capacity of the deque.
+   * @param autoShrink - Whether the deque should automatically shrink when elements are removed.
+   * @throws {TypeError} when the provided capacity is not a positive number.
+   */
   public constructor(initialCapacity = 16, autoShrink = true) {
-    if (!Number.isInteger(initialCapacity) || initialCapacity <= 0) {
-      throw new RangeError('Initial capacity must be a positive integer.');
+    if (initialCapacity <= 0) {
+      throw new RangeError('Initial capacity must be a positive integer');
     }
     this._capacity = this._nextPowerOfTwo(initialCapacity);
     this._mask = this._capacity - 1; // For bitmasking

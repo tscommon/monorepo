@@ -42,7 +42,7 @@ const events = [
 await Promise.all(
   events.map(async (event) => {
     try {
-      const user = await loader.get(event.userId);
+      const user = await loader.resolve(event.userId);
       console.log(`User ${user.name} performed ${event.action}`);
     } catch (error) {
       console.log(`User with ID ${event.userId} not found`);

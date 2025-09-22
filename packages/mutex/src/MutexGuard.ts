@@ -19,8 +19,9 @@ export class MutexGuard<T> implements PromiseLike<T>, AsyncDisposable {
   }
 
   /**
-   * ### Example
-   * @includeCode ../examples/manual.ts
+   * **Example:**
+   *
+   * {@includeCode ../examples/manual.ts}
    */
   public release(): void {
     if (this === this._state.owner) {

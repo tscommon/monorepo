@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import { BatchItem } from './BatchItem.js';
 
 /**
@@ -6,15 +8,13 @@ import { BatchItem } from './BatchItem.js';
  * `for of`
  * {@includeCode ../examples/01_for-of.ts}
  *
- *
  * `for await of`
  * {@includeCode ../examples/02_for-await-of.ts}
  *
- *
- * Predicate:
+ * **Predicate:**
  * {@includeCode ../examples/03_predicate.ts}
  *
- * Chaining:
+ * **Chaining:**
  * {@includeCode ../examples/04_chaining.ts}
  */
 export class Batch<T> implements Iterable<BatchItem<T>> {
@@ -23,8 +23,8 @@ export class Batch<T> implements Iterable<BatchItem<T>> {
     size: number,
     predicate?: (value: T, index: number) => boolean,
   ): Generator<Batch<T>, undefined> {
-    if (size < 1) {
-      throw new RangeError('The size must be greater than or equal to 1.');
+    if (size <= 0) {
+      throw new RangeError('The size must be greater than 0');
     }
     let index = 0;
     let items: T[] = [];
@@ -51,8 +51,8 @@ export class Batch<T> implements Iterable<BatchItem<T>> {
     size: number,
     predicate?: (value: T, index: number) => boolean,
   ): AsyncGenerator<Batch<T>, undefined> {
-    if (size < 1) {
-      throw new RangeError('The size must be greater than or equal to 1.');
+    if (size <= 0) {
+      throw new RangeError('The size must be greater than 0');
     }
     let index = 0;
     let items: T[] = [];
@@ -86,10 +86,22 @@ export class Batch<T> implements Iterable<BatchItem<T>> {
   /**
    * @private
    */
-  public *[Symbol.iterator](): Iterator<BatchItem<T>> {
-    for (let index = 0; index < this.items.length; ++index) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      yield new BatchItem(index, this.items[index]!);
-    }
+  public [Symbol.iterator](): Iterator<BatchItem<T>> {
+    let index = 0;
+    const { items } = this;
+    return {
+      next(): IteratorResult<BatchItem<T>> {
+        if (index < items.length) {
+          return {
+            done: false,
+            value: new BatchItem(index, items[index++]!),
+          };
+        }
+        return {
+          done: true,
+          value: undefined!,
+        };
+      },
+    };
   }
 }
